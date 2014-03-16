@@ -1,3 +1,4 @@
+package clue;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.BufferedReader;

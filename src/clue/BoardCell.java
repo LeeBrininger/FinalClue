@@ -1,3 +1,4 @@
+package clue;
 
 public abstract class BoardCell {
 	private int row;

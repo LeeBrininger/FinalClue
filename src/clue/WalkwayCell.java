@@ -1,3 +1,4 @@
+package clue;
 
 public class WalkwayCell extends BoardCell {
 	public static int numWalkWay;
