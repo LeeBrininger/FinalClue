@@ -84,7 +84,7 @@ public class Board {
 		    	numColumns = cellCodes.length;
             else if(cellCodes.length!=numColumns){
                 try {
-                    throw new BadConfigFormatException("There length of your columns are off.");
+                    throw new BadConfigFormatException("The length of your columns are off.");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

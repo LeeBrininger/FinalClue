@@ -12,7 +12,7 @@ public class ClueGame {
 		
 	}
 	
-	public void laodConfigFiles() {
+	public void loadConfigFiles() {
 		
 	}
 	
@@ -26,5 +26,13 @@ public class ClueGame {
 	
 	public boolean checkAccusation(Solution solution) {
 		return false;
+	}
+	
+	public ArrayList<Card> getCards() {
+		return cards;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 }
