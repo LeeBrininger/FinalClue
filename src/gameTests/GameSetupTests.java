@@ -47,32 +47,32 @@ public class GameSetupTests {
 			Player player = testList.get(i);
 			switch (game.getPlayers().indexOf(testList.get(i))) {
 				case 0:
-					assertEquals("Professor Plum", player.getName());
+					assertEquals("Frodo", player.getName());
 					assertEquals(new Color(102, 0, 102), player.getColor());
 					// TODO starting Location (need excel spreadsheet)
 					break;
 				case 1:
-					assertEquals("Mr. Green", player.getName());
+					assertEquals("Sam", player.getName());
 					assertEquals(Color.GREEN, player.getColor());
 					// TODO starting Location (need excel spreadsheet)
 					break;
 				case 2:
-					assertEquals("Ms. Scarlett", player.getName());
+					assertEquals("Aragorn", player.getName());
 					assertEquals(Color.RED, player.getColor());
 					// TODO starting Location (need excel spreadsheet)
 					break;
 				case 3:
-					assertEquals("Mrs. White", player.getName());
+					assertEquals("Gandalf", player.getName());
 					assertEquals(Color.WHITE, player.getColor());
 					// TODO starting Location (need excel spreadsheet)
 					break;
 				case 4:
-					assertEquals("Colonel Mustard", player.getName());
+					assertEquals("Legolas", player.getName());
 					assertEquals(Color.YELLOW, player.getColor());
 					// TODO starting Location (need excel spreadsheet)
 					break;
 				case 5:
-					assertEquals("Ms. Peacock", player.getName());
+					assertEquals("Gollum", player.getName());
 					assertEquals(Color.BLUE, player.getColor());
 					// TODO starting Location (need excel spreadsheet)
 					break;
@@ -107,7 +107,7 @@ public class GameSetupTests {
 		assertEquals(9, rooms);
 		assertEquals(6, players);
 		assertEquals(6, weapons);
-		Card player = new Card(cardType.PLAYER, "Ms. Scarlett");
+		Card player = new Card(cardType.PLAYER, "Sam");
 		Card weapon = new Card(cardType.WEAPON, "Lead Pipe");
 		Card room = new Card(cardType.ROOM, "Lounge");
 		assertTrue(game.getCards().contains(player));
@@ -115,9 +115,22 @@ public class GameSetupTests {
 		assertTrue(game.getCards().contains(room));
 	}
 	
+	/*Tests that there are 21 cards dealt, that a card is not dealt twice, and that each player has between 2 and 6 cards*/
 	@Test
 	public void testDealCards() {
 		game.deal();
+		ArrayList<Card> existing = new ArrayList<Card>();
+		int cardsDealt = 0;
+		for (int i = 0; i < 6; i++) {
+			ArrayList<Card> cards = game.getPlayers().get(i).getCards();
+			assertTrue(cards.size() < 6 && cards.size() > 2);
+			for (int j = 0; j < cards.size(); j++) {
+				assertFalse(existing.contains(cards.get(j)));
+				existing.add(cards.get(j));
+			}
+			cardsDealt += cards.size();
+		}
+		assertTrue(cardsDealt == 21);
 	}
 
 }

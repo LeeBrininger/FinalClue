@@ -23,6 +23,10 @@ public class Player {
 		return color;
 	}
 	
+	public ArrayList<Card> getCards() {
+		return myCards;
+	}
+	
 	
 	
 	
