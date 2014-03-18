@@ -49,32 +49,32 @@ public class GameSetupTests {
 				case 0:
 					assertEquals("Frodo", player.getName());
 					assertEquals(new Color(102, 0, 102), player.getColor());
-					assertEquals(92, player.)
+					assertEquals(92, player.getStartLocation());
 					break;
 				case 1:
 					assertEquals("Sam", player.getName());
 					assertEquals(Color.GREEN, player.getColor());
-					// TODO starting Location (need excel spreadsheet)
+					assertEquals(253, player.getStartLocation());
 					break;
 				case 2:
 					assertEquals("Aragorn", player.getName());
 					assertEquals(Color.RED, player.getColor());
-					// TODO starting Location (need excel spreadsheet)
+					assertEquals(190, player.getStartLocation());
 					break;
 				case 3:
 					assertEquals("Gandalf", player.getName());
 					assertEquals(Color.WHITE, player.getColor());
-					// TODO starting Location (need excel spreadsheet)
+					assertEquals(10, player.getStartLocation());
 					break;
 				case 4:
 					assertEquals("Legolas", player.getName());
 					assertEquals(Color.YELLOW, player.getColor());
-					// TODO starting Location (need excel spreadsheet)
+					assertEquals(229, player.getStartLocation());
 					break;
 				case 5:
 					assertEquals("Gollum", player.getName());
 					assertEquals(Color.BLUE, player.getColor());
-					// TODO starting Location (need excel spreadsheet)
+					assertEquals(457, player.getStartLocation());
 					break;
 			}
 		}
@@ -87,7 +87,7 @@ public class GameSetupTests {
 	type of card is in the deck*/
 	@Test
 	public void testLoadCards() {
-		assertTrue(game.getCards().size() == 21);
+		assertTrue(game.getCards().size() == 22);
 		int players = 0;
 		int weapons = 0;
 		int rooms = 0;
@@ -104,18 +104,18 @@ public class GameSetupTests {
 					break;
 			}
 		}
-		assertEquals(9, rooms);
+		assertEquals(10, rooms);
 		assertEquals(6, players);
 		assertEquals(6, weapons);
 		Card player = new Card(cardType.PLAYER, "Sam");
-		Card weapon = new Card(cardType.WEAPON, "Lead Pipe");
-		Card room = new Card(cardType.ROOM, "Lounge");
+		Card weapon = new Card(cardType.WEAPON, "Bow");
+		Card room = new Card(cardType.ROOM, "Rivendell");
 		assertTrue(game.getCards().contains(player));
 		assertTrue(game.getCards().contains(weapon));
 		assertTrue(game.getCards().contains(room));
 	}
 	
-	/*Tests that there are 21 cards dealt, that a card is not dealt twice, and that each player has between 2 and 6 cards*/
+	/*Tests that there are 22 cards dealt, that a card is not dealt twice, and that each player has between 2 and 6 cards*/
 	@Test
 	public void testDealCards() {
 		game.deal();
@@ -130,7 +130,7 @@ public class GameSetupTests {
 			}
 			cardsDealt += cards.size();
 		}
-		assertTrue(cardsDealt == 21);
+		assertTrue(cardsDealt == 22);
 	}
 
 }
