@@ -27,7 +27,9 @@ public class Player {
 		return myCards;
 	}
 	
-	
+	public int getStartLocation() {
+		return startLocation;
+	}
 	
 	
 	

@@ -49,7 +49,7 @@ public class GameSetupTests {
 				case 0:
 					assertEquals("Frodo", player.getName());
 					assertEquals(new Color(102, 0, 102), player.getColor());
-					// TODO starting Location (need excel spreadsheet)
+					assertEquals(92, player.)
 					break;
 				case 1:
 					assertEquals("Sam", player.getName());
