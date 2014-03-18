@@ -1,5 +1,6 @@
 package clue;
 import java.awt.Color;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 
@@ -10,6 +11,13 @@ public class Player {
 	private String name;
 	private Color color;
 	private int startLocation;
+	
+	public Player (String name, String color, int startLocation) {
+		this.name = name;
+		if (color.equals("PURPLE")) this.color = new Color(102,0,102);
+		else this.color = convertColor(color);
+		this.startLocation = startLocation;
+	}
 	
 	public Card disproveSuggestion(String person, String room, String weapon) {
 		return null;
@@ -29,6 +37,18 @@ public class Player {
 	
 	public int getStartLocation() {
 		return startLocation;
+	}
+	
+	public Color convertColor(String strColor) {
+		Color color; 
+		try {     
+			// We can use reflection to convert the string to a color
+			Field field = Class.forName("java.awt.Color").getField(strColor.trim());     
+			color = (Color)field.get(null); } 
+		catch (Exception e) {  
+			color = null; // Not defined } 
+		}
+		return color;
 	}
 	
 	

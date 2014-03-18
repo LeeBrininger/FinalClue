@@ -2,7 +2,11 @@ package clue;
 import java.util.Set;
 
 
-public class ComputerPlayer {
+public class ComputerPlayer extends Player {
+
+	public ComputerPlayer(String name, String color, int startLocation) {
+		super(name, color, startLocation);
+	}
 
 	private char lastRoomVisited;
 	

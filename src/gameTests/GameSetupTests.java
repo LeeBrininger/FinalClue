@@ -36,10 +36,10 @@ public class GameSetupTests {
 		testList.add(game.getPlayers().get(game.getHumanPlayerIndex()));
 		Random rand = new Random();
 		int x = -1;
-		while (x!=game.getHumanPlayerIndex() && x != -1) x = rand.nextInt(game.getPlayers().size());
+		while (x==game.getHumanPlayerIndex() || x == -1) x = rand.nextInt(game.getPlayers().size());
 		testList.add(game.getPlayers().get(x));
 		x = -1;
-		while (x!=game.getHumanPlayerIndex() && x != -1) x = rand.nextInt(game.getPlayers().size());
+		while (x==game.getHumanPlayerIndex() || x == -1) x = rand.nextInt(game.getPlayers().size());
 		testList.add(game.getPlayers().get(x));
 		
 		for (Player player : testList) {
@@ -90,7 +90,6 @@ public class GameSetupTests {
 		int weapons = 0;
 		int rooms = 0;
 		for (Card c : game.getCards()) {
-			System.out.println(c);
 			switch (c.getCardType()) {
 				case WEAPON:
 					weapons++;

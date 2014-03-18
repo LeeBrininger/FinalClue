@@ -32,7 +32,7 @@ public class ClueGame {
 			while (scan.hasNextLine()) {
 				String next = scan.nextLine();
 				String[] separated = next.split(",");
-				if (separated[0] == "PLAYER") makePlayer(separated[1], separated[2],Integer.parseInt(separated[3]));
+				if (separated[0].equals("PLAYER")) players.add(new Player (separated[1], separated[2],Integer.parseInt(separated[3])));
 				cards.add(new Card(cardType.valueOf(separated[0]),separated[1]));
 			}
 			//FIXME set to actual human player, currently hardcoded
