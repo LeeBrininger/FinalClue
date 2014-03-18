@@ -20,8 +20,7 @@ public class GameSetupTests {
 	//Makes a new game and loads configuration files
 	@BeforeClass
 	public static void setup(){ 
-		game = new ClueGame();
-		game.loadConfigFiles();
+		game = new ClueGame("componentConfig.csv");
 	}
 	
 	/*
@@ -31,7 +30,7 @@ public class GameSetupTests {
 	 */
 	@Test
 	public void testLoadPeople() {
-		assertTrue(game.getPlayers().size() == 6);
+		assertEquals(6, game.getPlayers().size());
 		
 		ArrayList<Player> testList = new ArrayList<Player>();
 		testList.add(game.getPlayers().get(game.getHumanPlayerIndex()));
@@ -43,9 +42,8 @@ public class GameSetupTests {
 		while (x!=game.getHumanPlayerIndex() && x != -1) x = rand.nextInt(game.getPlayers().size());
 		testList.add(game.getPlayers().get(x));
 		
-		for (int i = 0; i < 3; i++) {
-			Player player = testList.get(i);
-			switch (game.getPlayers().indexOf(testList.get(i))) {
+		for (Player player : testList) {
+			switch (game.getPlayers().indexOf(player)) {
 				case 0:
 					assertEquals("Frodo", player.getName());
 					assertEquals(new Color(102, 0, 102), player.getColor());
@@ -73,7 +71,7 @@ public class GameSetupTests {
 					break;
 				case 5:
 					assertEquals("Gollum", player.getName());
-					assertEquals(Color.BLUE, player.getColor());
+					assertEquals(Color.BLACK, player.getColor());
 					assertEquals(457, player.getStartLocation());
 					break;
 			}
@@ -87,12 +85,13 @@ public class GameSetupTests {
 	type of card is in the deck*/
 	@Test
 	public void testLoadCards() {
-		assertTrue(game.getCards().size() == 22);
+		assertEquals(20, game.getCards().size());
 		int players = 0;
 		int weapons = 0;
 		int rooms = 0;
-		for (int i = 0; i < game.getCards().size(); i++) {
-			switch (game.getCards().get(i).getCardType()) {
+		for (Card c : game.getCards()) {
+			System.out.println(c);
+			switch (c.getCardType()) {
 				case WEAPON:
 					weapons++;
 					break;
@@ -104,7 +103,7 @@ public class GameSetupTests {
 					break;
 			}
 		}
-		assertEquals(10, rooms);
+		assertEquals(8, rooms);
 		assertEquals(6, players);
 		assertEquals(6, weapons);
 		Card player = new Card(cardType.PLAYER, "Sam");
@@ -115,22 +114,22 @@ public class GameSetupTests {
 		assertTrue(game.getCards().contains(room));
 	}
 	
-	/*Tests that there are 22 cards dealt, that a card is not dealt twice, and that each player has between 2 and 6 cards*/
+	/*Tests that there are 17 cards dealt (the other 3 are in the solution), that a card is not dealt twice, and that each player has either 2 or 3 cards*/
 	@Test
 	public void testDealCards() {
 		game.deal();
 		ArrayList<Card> existing = new ArrayList<Card>();
 		int cardsDealt = 0;
-		for (int i = 0; i < 6; i++) {
-			ArrayList<Card> cards = game.getPlayers().get(i).getCards();
-			assertTrue(cards.size() < 6 && cards.size() > 2);
+		for (Player p : game.getPlayers()) {
+			ArrayList<Card> cards = p.getCards();
+			assertTrue(cards.size() == 3 || cards.size() == 2);
 			for (int j = 0; j < cards.size(); j++) {
 				assertFalse(existing.contains(cards.get(j)));
 				existing.add(cards.get(j));
 			}
 			cardsDealt += cards.size();
 		}
-		assertTrue(cardsDealt == 22);
+		assertTrue(cardsDealt == 17);
 	}
 
 }
