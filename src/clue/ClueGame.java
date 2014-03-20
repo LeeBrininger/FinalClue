@@ -39,7 +39,7 @@ public class ClueGame {
 		weapon = cards.get(r).name;
 		weaponInd = r;
 		
-		Solution solution = new Solution(person, weapon, room);
+		setSolution(person, weapon, room);
 		
 		while (nextCard < cards.size()) {
 			if (nextCard != roomInd && nextCard != weaponInd && nextCard != personInd) {
@@ -77,6 +77,10 @@ public class ClueGame {
 		}
 	}
 	
+	public void setSolution(String person, String weapon, String room) {
+		solution = new Solution(person, weapon, room);
+	}
+	
 	public void makePlayer(String name, String color, int startLoc) {
 		
 	}
@@ -103,5 +107,9 @@ public class ClueGame {
 	
 	public int getHumanPlayerIndex() {
 		return humanPlayerIndex;
+	}
+	
+	public Solution getSolution() {
+		return solution;
 	}
 }
