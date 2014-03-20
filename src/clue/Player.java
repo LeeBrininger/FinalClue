@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import javax.smartcardio.Card;
+
 
 public class Player {
 	
@@ -37,6 +39,10 @@ public class Player {
 	
 	public int getStartLocation() {
 		return startLocation;
+	}
+	
+	public void giveCard(Card newCard) {
+		myCards.add(newCard);
 	}
 	
 	public Color convertColor(String strColor) {

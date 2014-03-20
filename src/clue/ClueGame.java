@@ -24,7 +24,16 @@ public class ClueGame {
 	}
 	
 	public void deal() {
-		
+		int nextCard, nextPlayer = 0;
+		while (cardsDealt < cards.length()) {
+			players[nextPlayer].giveCard(cards[nextCard]);
+			
+			nextPlayer++;
+			if (nextplayer == players.length()) {
+				nextPlayer = 0;
+			}
+			nextCard++;
+		}
 	}
 	
 	public void loadConfig() {
