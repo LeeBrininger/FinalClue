@@ -10,4 +10,13 @@ public class Solution {
 		this.room = room;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (!(obj instanceof Solution)) return false;
+		Solution s = (Solution) obj;
+		if (this.person.equals(s.person) && this.weapon.equals(s.weapon) && this.room.equals(s.room)) return true;
+		else return false;
+	}
+	
 }

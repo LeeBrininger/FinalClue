@@ -94,7 +94,8 @@ public class ClueGame {
 	}
 	
 	public boolean checkAccusation(Solution solution) {
-		return false;
+		if (this.solution.equals(solution)) return true;
+		else return false;
 	}
 	
 	public ArrayList<Card> getCards() {
