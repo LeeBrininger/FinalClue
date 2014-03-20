@@ -2,6 +2,7 @@ package clue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -24,6 +25,7 @@ public class ClueGame {
 	}
 	
 	public void deal() {
+		Collections.shuffle(cards);
 		int nextCard = 0, nextPlayer = 0;
 		Random rand = new Random();
 		String room = "", weapon = "", person = "";
