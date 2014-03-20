@@ -24,13 +24,29 @@ public class ClueGame {
 	}
 	
 	public void deal() {
-		int nextCard, nextPlayer = 0;
-		while (cardsDealt < cards.length()) {
-			players[nextPlayer].giveCard(cards[nextCard]);
-			
-			nextPlayer++;
-			if (nextplayer == players.length()) {
-				nextPlayer = 0;
+		int nextCard = 0, nextPlayer = 0;
+		Random rand = new Random();
+		String room = "", weapon = "", person = "";
+		int roomInd, weaponInd, personInd;
+		int r = rand.nextInt(cards.size());
+		while (cards.get(r).getCardType() != cardType.PLAYER) r=rand.nextInt(cards.size());
+		person = cards.get(r).name;
+		personInd=r;
+		while (cards.get(r).getCardType() != cardType.ROOM) r=rand.nextInt(cards.size());
+		room = cards.get(r).name;
+		roomInd = r;
+		while (cards.get(r).getCardType() != cardType.WEAPON) r=rand.nextInt(cards.size());
+		weapon = cards.get(r).name;
+		weaponInd = r;
+		
+		Solution solution = new Solution(person, weapon, room);
+		
+		while (nextCard < cards.size()) {
+			if (nextCard != roomInd && nextCard != weaponInd && nextCard != personInd) {
+				players.get(nextPlayer).giveCard(cards.get(nextCard));
+				
+				if (nextPlayer == players.size()-1) nextPlayer = 0;
+				else nextPlayer++;
 			}
 			nextCard++;
 		}

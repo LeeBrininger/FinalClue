@@ -3,7 +3,6 @@ import java.awt.Color;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import javax.smartcardio.Card;
 
 
 public class Player {
@@ -19,6 +18,7 @@ public class Player {
 		if (color.equals("PURPLE")) this.color = new Color(102,0,102);
 		else this.color = convertColor(color);
 		this.startLocation = startLocation;
+		myCards = new ArrayList<Card>();
 	}
 	
 	public Card disproveSuggestion(String person, String room, String weapon) {
