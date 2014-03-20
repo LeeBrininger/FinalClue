@@ -81,7 +81,7 @@ public class GameSetupTests {
 	}
 	
 	
-	/*Tests that the deck has the right amount of cards, the right amount of cards, and if a selection of each
+	/*Tests that the deck has the right amount of cards, the right amount of each type of card, and if a selection of each
 	type of card is in the deck*/
 	@Test
 	public void testLoadCards() {
