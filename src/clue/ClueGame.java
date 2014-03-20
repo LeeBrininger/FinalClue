@@ -2,6 +2,7 @@ package clue;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import clue.Card.cardType;
@@ -29,13 +30,20 @@ public class ClueGame {
 	public void loadConfig() {
 		try {
 			Scanner scan = new Scanner(componentConfig);
-			while (scan.hasNextLine()) {
+			Random rand = new Random();
+			int character = rand.nextInt(6);
+			for (int i=0; scan.hasNextLine(); i++) {
 				String next = scan.nextLine();
 				String[] separated = next.split(",");
-				if (separated[0].equals("PLAYER")) players.add(new Player (separated[1], separated[2],Integer.parseInt(separated[3])));
+				if (separated[0].equals("PLAYER")) {
+					if (i == character) {
+						players.add(new HumanPlayer (separated[1], separated[2],Integer.parseInt(separated[3])));
+						humanPlayerIndex = i;
+					}
+					else players.add(new ComputerPlayer (separated[1], separated[2],Integer.parseInt(separated[3])));
+				}
 				cards.add(new Card(cardType.valueOf(separated[0]),separated[1]));
 			}
-			//FIXME set to actual human player, currently hardcoded
 			
 			scan.close();
 		} catch (FileNotFoundException e) {
