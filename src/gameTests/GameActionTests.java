@@ -2,10 +2,13 @@ package gameTests;
 
 import static org.junit.Assert.*;
 
+import java.util.Random;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import clue.*;
+import clue.Card.cardType;
 
 public class GameActionTests {
 	
@@ -34,6 +37,121 @@ static ClueGame game;
 		
 		// Verifies that the function will return true when the correct values are put in
 		assertTrue(game.checkAccusation(new Solution("Frodo", "Dagger", "The Shire")));
+	}
+	
+	
+	// Tests to make sure each type of card can be disproved when there is only one available card to be used
+	@Test
+	public void testDisproveOnlyCard() {
+		Random rand = new Random();
+		int index = rand.nextInt(6);
+		int accusingIndex = rand.nextInt(6);
+		while (index == accusingIndex) accusingIndex = rand.nextInt(6);
+		game.getPlayers().get(index).giveCard(new Card (cardType.PLAYER, "Gandalf"));
+		game.getPlayers().get(index).giveCard(new Card(cardType.WEAPON, "Longsword"));
+		game.getPlayers().get(index).giveCard(new Card(cardType.ROOM, "The Shire"));
+		
+		// Tests that a player suggestion can be disproved when only one can be shown
+		assertEquals(new Card(cardType.PLAYER, "Gandalf"), game.handleSuggestion("Gandalf", "Bow", "Dunland", game.getPlayers().get(accusingIndex)));
+		// Tests that a weapon suggestion can be disproved when only one can be shown
+		assertEquals(new Card(cardType.WEAPON, "Longsword"), game.handleSuggestion("Gollum", "Longsword", "Rivendell", game.getPlayers().get(accusingIndex)));
+		// Tests that a room suggestion can be disproved when only one can be shown
+		assertEquals(new Card(cardType.ROOM, "The Shire"), game.handleSuggestion("Frodo", "Wizard Staff", "The Shire", game.getPlayers().get(accusingIndex)));
+	}
+	
+	
+	// Tests that if a player has two cards that can be shown that it will return either one randomly
+	@Test
+	public void testDisproveTwoCards() {
+		Random rand = new Random();
+		int index = rand.nextInt(6);
+		int accusingIndex = rand.nextInt(6);
+		while (index == accusingIndex) accusingIndex = rand.nextInt(6);
+		game.getPlayers().get(index).giveCard(new Card (cardType.PLAYER, "Gandalf"));
+		game.getPlayers().get(index).giveCard(new Card(cardType.WEAPON, "Longsword"));
+		game.getPlayers().get(index).giveCard(new Card(cardType.ROOM, "The Shire"));
+		
+		Card testPlayerWeapon = game.handleSuggestion("Gandalf", "Longsword", "Rhun", game.getPlayers().get(accusingIndex));
+		Card testPlayerRoom = game.handleSuggestion("Gandalf", "The Ring", "The Shire", game.getPlayers().get(accusingIndex));
+		Card testWeaponRoom = game.handleSuggestion("Sam", "Longsword", "The Shire", game.getPlayers().get(accusingIndex));
+		
+		// Tests if a player has a player card or a weapon card that it will return one of them randomly 
+		assertTrue(testPlayerWeapon == new Card(cardType.PLAYER, "Gandalf") || testPlayerWeapon == new Card(cardType.WEAPON, "Longsword"));
+		// Tests if a player has a player card or a room card that it will return one of them randomly 
+		assertTrue(testPlayerRoom == new Card(cardType.PLAYER, "Gandalf") || testPlayerWeapon == new Card(cardType.ROOM, "The Shire"));
+		// Tests if a player has a weapon card or a room card that it will return one of them randomly 
+		assertTrue(testWeaponRoom == new Card(cardType.WEAPON, "Longsword") || testPlayerWeapon == new Card(cardType.ROOM, "The Shire"));
+		
+	}
+	
+	// Tests to make sure that if the accusingPlayer is the only player that can disprove his suggestion
+	// it returns null 
+	@Test
+	public void testDisproveAccusingPlayer() {
+		Random rand = new Random();
+		int index = rand.nextInt(6);
+		
+		game.getPlayers().get(index).giveCard(new Card(cardType.PLAYER, "Aragorn"));
+		game.getPlayers().get(index).giveCard(new Card(cardType.WEAPON, "Battleaxe"));
+		game.getPlayers().get(index).giveCard(new Card (cardType.ROOM, "Mirkwood"));
+		
+		assertEquals(null, game.handleSuggestion("Aragorn", "Battleaxe", "Mirkwood", game.getPlayers().get(index)));
+	}
+	
+	// Tests to make sure that the human player disproves suggestions no differently than computer players
+	@Test
+	public void testDisproveHumanPlayerOneCard() {
+		Random rand = new Random();
+		int index = rand.nextInt(6);
+		while (index == game.getHumanPlayerIndex()) index = rand.nextInt(6);
+		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card (cardType.PLAYER, "Gandalf"));
+		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card(cardType.WEAPON, "Longsword"));
+		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card(cardType.ROOM, "The Shire"));
+		
+		// Tests that a player suggestion can be disproved when only one can be shown
+		assertEquals(new Card(cardType.PLAYER, "Gandalf"), game.handleSuggestion("Gandalf", "Bow", "Dunland", game.getPlayers().get(index)));
+		// Tests that a weapon suggestion can be disproved when only one can be shown
+		assertEquals(new Card(cardType.WEAPON, "Longsword"), game.handleSuggestion("Gollum", "Longsword", "Rivendell", game.getPlayers().get(index)));
+		// Tests that a room suggestion can be disproved when only one can be shown
+		assertEquals(new Card(cardType.ROOM, "The Shire"), game.handleSuggestion("Frodo", "Wizard Staff", "The Shire", game.getPlayers().get(index)));
+	
+	}
+	
+	// Tests to make sure that the human player disproves suggestions when it has two cards to show
+	// no differently than computer players
+	@Test
+	public void testDisproveHumanPlayerTwoCards() {
+		Random rand = new Random();
+		int index = rand.nextInt(6);
+		while (index == game.getHumanPlayerIndex()) index = rand.nextInt(6);
+		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card(cardType.PLAYER, "Legolas"));
+		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card(cardType.ROOM, "Rhun"));
+		
+		Card test = game.handleSuggestion("Legolas", "Dagger", "Rhun", game.getPlayers().get(index));
+		// Tests the human player will return one of its cards randomly 
+		assertTrue(test == new Card(cardType.PLAYER, "Legolas") || test == new Card(cardType.ROOM, "Rhun"));
+	}
+	
+	// Tests to make sure all players are queried when disproving a suggestion
+	@Test
+	public void testDisproveQueryInOrder() {
+		int index = 0;
+		if (index == game.getHumanPlayerIndex()) index++;
+		game.getPlayers().get(2).giveCard(new Card(cardType.PLAYER, "Sam"));
+		game.getPlayers().get(5).giveCard(new Card(cardType.ROOM, "Ash Mountains"));
+		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card(cardType.PLAYER, "Aragorn"));
+		
+		// Tests to make sure null is returned when a suggestion is made that no player can disprove
+		assertEquals(null, game.handleSuggestion("Legolas", "Longsword", "Mirkwood", game.getPlayers().get(3)));
+		// Tests if two players can disprove the suggestion, the player who is first in the list shows its card
+		assertEquals(new Card(cardType.PLAYER, "Sam"), game.handleSuggestion("Sam", "Dagger", "Ash Mountains", game.getPlayers().get(4)));
+		// Tests if the human player will show its card if it is the only one that can disprove the suggestion
+		assertEquals(new Card(cardType.PLAYER, "Aragorn"), game.handleSuggestion("Aragorn", "The Ring", "Rivendell", game.getPlayers().get(game.getHumanPlayerIndex())));
+		// Tests if only the accusing player can disprove his suggestion, null is returned
+		assertEquals(null, game.handleSuggestion("Gollum", "Bow", "Ash Mountains", game.getPlayers().get(5)));
+		// Tests if the last player in the list can disprove a suggestion when the accusing player is the first or second player in the list
+		assertEquals(new Card(cardType.ROOM, "Ash Mountains"), game.handleSuggestion("Gandalf", "Wizard Staff", "Aragorn", game.getPlayers().get(index)));
+		
 	}
 
 }
