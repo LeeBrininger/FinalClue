@@ -21,19 +21,10 @@ public class ComputerPlayer extends Player {
 	
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
-		// In case of no room targets
-		HashSet<BoardCell> targs = (HashSet<BoardCell>) targets;
 		boolean foundRoom = false;
-		
-<<<<<<< HEAD
 		for (int i = 0; i < targets.length(); i++) {
 			if (targets[i].isRoom()) {
 				if (lastRoomVisited.equals(targets[i].getCellCode)) {
-=======
-		for (BoardCell i : targs) {
-			if (i.isRoom("" + i.getCellCode())) {
-				if (lastRoomVisited == (i.getCellCode())) {
->>>>>>> ec22f884f9fe6adb1ffe40e75a50a841d3c56eef
 					// Do nothing if it's the last visited room
 					continue;
 				} else {
