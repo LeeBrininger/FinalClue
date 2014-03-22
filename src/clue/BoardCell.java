@@ -66,9 +66,13 @@ public abstract class BoardCell {
 		return rowsCols;
 	}
 
-	//override equals
-	public boolean equals (BoardCell bc){
-		return ((this.row==bc.row) && (this.column == bc.column));
+	@Override
+	public boolean equals (Object o){
+		if (this == o) return true;
+		if (!(o instanceof BoardCell)) return false;
+		BoardCell b = (BoardCell) o;
+		if (this.row == b.row && this.column == b.column) return true;
+		else return false;
 	}
 
 

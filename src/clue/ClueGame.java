@@ -21,6 +21,7 @@ public class ClueGame {
 		componentConfig = new File(componentFile);
 		cards = new ArrayList<Card>();
 		players = new ArrayList<Player>();
+		board = new Board();
 		loadConfig();
 	}
 	
@@ -114,5 +115,9 @@ public class ClueGame {
 	
 	public Solution getSolution() {
 		return solution;
+	}
+	
+	public Board getBoard() {
+		return board;
 	}
 }

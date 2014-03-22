@@ -11,8 +11,8 @@ public class ComputerPlayer extends Player {
 	private char lastRoomVisited;
 	
 	
-	public void pickLocation(Set<BoardCell> targets) {
-		
+	public BoardCell pickLocation(Set<BoardCell> targets) {
+		return null;
 	}
 	
 	public void createSuggestion() {

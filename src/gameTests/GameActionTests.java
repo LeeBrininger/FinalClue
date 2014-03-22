@@ -2,6 +2,7 @@ package gameTests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.Random;
 
 import org.junit.BeforeClass;
@@ -151,7 +152,64 @@ static ClueGame game;
 		assertEquals(null, game.handleSuggestion("Gollum", "Bow", "Ash Mountains", game.getPlayers().get(5)));
 		// Tests if the last player in the list can disprove a suggestion when the accusing player is the first or second player in the list
 		assertEquals(new Card(cardType.ROOM, "Ash Mountains"), game.handleSuggestion("Gandalf", "Wizard Staff", "Aragorn", game.getPlayers().get(index)));
-		
 	}
-
+	
+	// Tests to make sure that if a room is in the set of targets, it is always chosen
+	@Test
+	public void testTargetRoom() {
+		game.getBoard().findTargets(game.getBoard().getCellAt(game.getBoard().calcIndex(13,9)), 3);
+		// for loop to make sure that the room isn't chosen randomly on the first try
+		for (int i = 0; i < 3; i++) {
+			ComputerPlayer player = new ComputerPlayer("Gandalf", "WHITE", 10);
+			BoardCell selected = player.pickLocation(game.getBoard().getTargets());
+			assertEquals(game.getBoard().getCellAt(game.getBoard().calcIndex(15,9)), selected);
+		}
+	}
+	
+	// Test to make sure the room last visited isn't chosen as a target
+	@Test
+	public void testConsiderLastRoom() {
+		game.getBoard().findTargets(game.getBoard().getCellAt(game.getBoard().calcIndex(13,9)), 3);
+		ComputerPlayer player = new ComputerPlayer("Gandalf", "WHITE", 10);
+		player.pickLocation(game.getBoard().getTargets());
+		// for loop to make sure that a target that isn't the room isn't chosen randomly on the first try
+		for (int i = 0; i < 3; i++) {
+			BoardCell selected = player.pickLocation(game.getBoard().getTargets());
+			assertFalse(game.getBoard().getCellAt(game.getBoard().calcIndex(15,9)) == selected);
+		}
+	}
+	
+	// Tests for random target selection
+	@Test
+	public void testTargetRandomSelection() {
+		ComputerPlayer player = new ComputerPlayer("Frodo", "PURPLE", 92);
+		// Pick a location with no rooms in target, just four targets
+		game.getBoard().calcTargets(14,15, 2);
+		int loc_16_15Tot = 0;
+		int loc_14_17Tot = 0;
+		int loc_14_13Tot = 0;
+		int loc_13_14Tot = 0;
+		// Run the test 100 times
+		for (int i=0; i<100; i++) {
+			BoardCell selected = player.pickLocation(game.getBoard().getTargets());
+			if (selected == game.getBoard().getCellAt(game.getBoard().calcIndex(16, 15)))
+				loc_16_15Tot++;
+			else if (selected == game.getBoard().getCellAt(game.getBoard().calcIndex(14, 17)))
+				loc_14_17Tot++;
+			else if (selected == game.getBoard().getCellAt(game.getBoard().calcIndex(14, 13)))
+				loc_14_13Tot++;
+			else if (selected == game.getBoard().getCellAt(game.getBoard().calcIndex(13, 14)))
+				loc_13_14Tot++;
+			else
+				fail("Invalid target selected");
+		}
+		// Ensure we have 100 total selections (fail should also ensure)
+		assertEquals(100, loc_16_15Tot + loc_14_17Tot + loc_13_14Tot + loc_14_13Tot);
+		// Ensure each target was selected more than once
+		assertTrue(loc_16_15Tot > 10);
+		assertTrue(loc_14_17Tot > 10);
+		assertTrue(loc_14_13Tot > 10);
+		assertTrue(loc_13_14Tot > 10);
+	}
+	
 }
