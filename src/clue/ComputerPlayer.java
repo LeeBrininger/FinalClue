@@ -1,6 +1,7 @@
 package clue;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Random;
 
 
 public class ComputerPlayer extends Player {
@@ -16,8 +17,7 @@ public class ComputerPlayer extends Player {
 	
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
-		// In case of no room targets
-		target = targets[0];
+		boolean foundRoom = false;
 		
 		for (targets : i) {
 			i.next();
@@ -26,8 +26,14 @@ public class ComputerPlayer extends Player {
 					// Do nothing if it's the last visited room
 					continue;
 				} else {
+					foundRoom = true;
 					target = i;
 				}
+			}
+			if (!foundRoom) {
+				Random random = new Random();
+				int randomTarget = random.nextInt(targets.length()) - 1;
+				target = targets[randomTarget];
 			}
 		}
 		return target;
