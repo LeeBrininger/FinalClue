@@ -1,6 +1,7 @@
 package clue;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -22,6 +23,12 @@ public class ClueGame {
 		cards = new ArrayList<Card>();
 		players = new ArrayList<Player>();
 		board = new Board();
+		try {
+			board.loadConfigFiles();
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 		loadConfig();
 	}
 	

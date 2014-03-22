@@ -212,4 +212,65 @@ static ClueGame game;
 		assertTrue(loc_13_14Tot > 10);
 	}
 	
+	// Test for when computer makes a suggestion and only one is possible
+	@Test
+	public void testComputerSuggestionOnePossible() {
+		ComputerPlayer player = new ComputerPlayer("Frodo", "PURPLE", 92);
+		// Update the player's seen cards with every single one except for the two that he will use
+		player.updateSeen(new Card(cardType.PLAYER, "Frodo"));
+		player.updateSeen(new Card(cardType.PLAYER, "Sam"));
+		player.updateSeen(new Card(cardType.PLAYER, "Gollum"));
+		player.updateSeen(new Card(cardType.PLAYER, "Gandalf"));
+		player.updateSeen(new Card(cardType.PLAYER, "Legolas"));
+		player.updateSeen(new Card(cardType.WEAPON, "Wizard Staff"));
+		player.updateSeen(new Card(cardType.WEAPON, "The Ring"));
+		player.updateSeen(new Card(cardType.WEAPON, "Longsword"));
+		player.updateSeen(new Card(cardType.WEAPON, "Dagger"));
+		player.updateSeen(new Card(cardType.WEAPON, "Battleaxe"));
+		
+		// Sets the player's current location to Mirkwood
+		player.setCurrentLocation(game.getBoard().getCellAt(game.getBoard().calcIndex(9, 15)));
+		
+		assertEquals(new Solution("Aragorn", "Bow", "Mirkwood"), player.createSuggestion());
+	}
+	
+	// Test for when computer makes a suggestion and only one is possible
+		@Test
+		public void testComputerSuggestionMultiplePossible() {
+			ComputerPlayer player = new ComputerPlayer("Frodo", "PURPLE", 92);
+			// Update the player's seen cards with every single one except for the two that he will use
+			player.updateSeen(new Card(cardType.PLAYER, "Frodo"));
+			player.updateSeen(new Card(cardType.PLAYER, "Sam"));
+			player.updateSeen(new Card(cardType.PLAYER, "Gollum"));
+			player.updateSeen(new Card(cardType.PLAYER, "Gandalf"));
+			player.updateSeen(new Card(cardType.WEAPON, "Wizard Staff"));
+			player.updateSeen(new Card(cardType.WEAPON, "The Ring"));
+			player.updateSeen(new Card(cardType.WEAPON, "Dagger"));
+			player.updateSeen(new Card(cardType.WEAPON, "Battleaxe"));
+			
+			// Sets the player's current location to Mirkwood
+			player.setCurrentLocation(game.getBoard().getCellAt(game.getBoard().calcIndex(9, 15)));
+			
+			int sol_Aragorn_Bow = 0;
+			int sol_Aragorn_Longsword = 0;
+			int sol_Legolas_Bow = 0;
+			int sol_Legolas_Longsword = 0;
+			// Run the test 100 times
+			for (int i = 0; i<100; i++) {
+				Solution solution = player.createSuggestion();
+				if (solution == new Solution ("Aragorn", "Bow", "Mirkwood")) sol_Aragorn_Bow++;
+				else if (solution == new Solution ("Aragorn", "Longsword", "Mirkwood")) sol_Aragorn_Longsword++;
+				else if (solution == new Solution ("Legolas", "Bow", "Mirkwood")) sol_Legolas_Bow++;
+				else if (solution == new Solution ("Legolas", "Longsword", "Mirkwood")) sol_Legolas_Longsword++;
+				else fail("Invalid suggestion.");
+			}
+			// Ensure we have 100 total selections (fail should also ensure)
+			assertEquals(100, sol_Aragorn_Bow + sol_Aragorn_Longsword + sol_Legolas_Bow + sol_Legolas_Longsword);
+			// Ensure each suggestion was selected more than once
+			assertTrue(sol_Aragorn_Bow > 10);
+			assertTrue(sol_Aragorn_Longsword > 10);
+			assertTrue(sol_Legolas_Bow > 10);
+			assertTrue(sol_Legolas_Longsword > 10);
+		}
+	
 }

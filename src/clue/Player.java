@@ -12,17 +12,23 @@ public class Player {
 	private String name;
 	private Color color;
 	private int startLocation;
+	private BoardCell currentLocation;
 	
 	public Player (String name, String color, int startLocation) {
 		this.name = name;
 		if (color.equals("PURPLE")) this.color = new Color(102,0,102);
 		else this.color = convertColor(color);
 		this.startLocation = startLocation;
+		currentLocation = null;
 		myCards = new ArrayList<Card>();
 	}
 	
 	public Card disproveSuggestion(String person, String room, String weapon) {
 		return null;
+	}
+	
+	public void setCurrentLocation(BoardCell currentLocation) {
+		this.currentLocation = currentLocation;
 	}
 	
 	public String getName() {

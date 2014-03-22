@@ -74,7 +74,6 @@ public class Board {
 	public void loadBoard () throws BadConfigFormatException, FileNotFoundException{
 		Scanner scan = new Scanner (new File (boardName+".csv"));
 		int countRows =0;
-		ArrayList <String> doorWays = new ArrayList <String> ();
 		while(scan.hasNext()){
 			String row = scan.nextLine();
 
