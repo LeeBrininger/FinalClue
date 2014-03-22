@@ -20,11 +20,9 @@ public class ComputerPlayer extends Player {
 	}
 	
 	
+	@SuppressWarnings("static-access")
 	public BoardCell pickLocation(Set<BoardCell> targets) {
-		// In case of no room targets
 
-		boolean foundRoom = false;
-		
 		for (BoardCell i : targets) {
 			if (i.isRoom("" + i.getCellCode())) {
 				if (lastRoomVisited != i.getCellCode()) {
