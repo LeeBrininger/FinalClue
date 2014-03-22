@@ -100,6 +100,24 @@ public class ClueGame {
 	}
 	
 	public Card handleSuggestion(String person, String weapon, String room, Player accusingPerson) {
+		for (Player p : players) {
+			if (!p.equals(accusingPerson)) {
+				ArrayList<Card> sameCards = new ArrayList<Card>();
+				Card playerCard = new Card(cardType.PLAYER, person);
+				Card weaponCard = new Card(cardType.WEAPON, weapon);
+				Card roomCard = new Card(cardType.ROOM, room);
+				
+				if (p.getCards().contains(playerCard)) sameCards.add(playerCard);
+				if (p.getCards().contains(weaponCard)) sameCards.add(weaponCard);
+				if (p.getCards().contains(roomCard)) sameCards.add(roomCard);
+				
+				if (sameCards.size() == 1) return sameCards.get(0);
+				else if (sameCards.size() > 1) {
+					Random rand = new Random();
+					return sameCards.get(rand.nextInt(sameCards.size()));
+				}
+			}
+		}
 		return null;
 	}
 	
