@@ -2,10 +2,9 @@ package gameTests;
 
 import static org.junit.Assert.*;
 
-import java.awt.Color;
 import java.util.Random;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import clue.*;
@@ -16,8 +15,8 @@ public class GameActionTests {
 static ClueGame game;
 	
 	// Makes a new game and loads configuration files
-	@BeforeClass
-	public static void setup(){ 
+	@Before
+	public void setup(){ 
 		game = new ClueGame("componentConfig.csv");
 	}
 	
@@ -72,17 +71,55 @@ static ClueGame game;
 		game.getPlayers().get(index).giveCard(new Card(cardType.WEAPON, "Longsword"));
 		game.getPlayers().get(index).giveCard(new Card(cardType.ROOM, "The Shire"));
 		
-		Card testPlayerWeapon = game.handleSuggestion("Gandalf", "Longsword", "Rhun", game.getPlayers().get(accusingIndex));
-		Card testPlayerRoom = game.handleSuggestion("Gandalf", "The Ring", "The Shire", game.getPlayers().get(accusingIndex));
-		Card testWeaponRoom = game.handleSuggestion("Sam", "Longsword", "The Shire", game.getPlayers().get(accusingIndex));
+		int pw_Gandalf = 0;
+		int pw_Longsword = 0;
+		int pr_Gandalf = 0;
+		int pr_Shire = 0;
+		int wr_Longsword = 0;
+		int wr_Shire = 0;
 		
-		// Tests if a player has a player card or a weapon card that it will return one of them randomly 
-		assertTrue(testPlayerWeapon == new Card(cardType.PLAYER, "Gandalf") || testPlayerWeapon == new Card(cardType.WEAPON, "Longsword"));
-		// Tests if a player has a player card or a room card that it will return one of them randomly 
-		assertTrue(testPlayerRoom == new Card(cardType.PLAYER, "Gandalf") || testPlayerWeapon == new Card(cardType.ROOM, "The Shire"));
-		// Tests if a player has a weapon card or a room card that it will return one of them randomly 
-		assertTrue(testWeaponRoom == new Card(cardType.WEAPON, "Longsword") || testPlayerWeapon == new Card(cardType.ROOM, "The Shire"));
+		// Run the test 100 times
+		for (int i = 0 ; i < 100; i++) {
+			Card testPlayerWeapon = game.handleSuggestion("Gandalf", "Longsword", "Rhun", game.getPlayers().get(accusingIndex));
+			Card testPlayerRoom = game.handleSuggestion("Gandalf", "The Ring", "The Shire", game.getPlayers().get(accusingIndex));
+			Card testWeaponRoom = game.handleSuggestion("Sam", "Longsword", "The Shire", game.getPlayers().get(accusingIndex));
+
+			if (testPlayerWeapon.equals(new Card(cardType.PLAYER, "Gandalf"))) pw_Gandalf++;
+			else if (testPlayerWeapon.equals(new Card(cardType.WEAPON, "Longsword"))) pw_Longsword++;
+			else {
+				System.out.println(testPlayerWeapon);
+				fail("Invalid card returned.");
+			
+			}
+			
+			if (testPlayerRoom.equals(new Card(cardType.PLAYER, "Gandalf"))) pr_Gandalf++;
+			else if (testPlayerRoom.equals(new Card(cardType.ROOM, "The Shire"))) pr_Shire++;
+			else {
+				System.out.println(testPlayerRoom);
+				fail("Invalid card returned.");
+			}
+			
+			if (testWeaponRoom.equals(new Card(cardType.WEAPON, "Longsword"))) wr_Longsword++;
+			else if (testWeaponRoom.equals(new Card(cardType.ROOM, "The Shire"))) wr_Shire++;
+			else {
+				System.out.println(testWeaponRoom);
+				fail("Invalid card returned.");
+			}
+			
+		}
 		
+		// Ensure we have 100 total selections (fail should also ensure) for each type
+		assertEquals(100, pw_Gandalf + pw_Longsword);
+		assertEquals(100, pr_Gandalf + pr_Shire);
+		assertEquals(100, wr_Longsword + wr_Shire);
+		// Ensure each target was selected more than once
+		assertTrue(pw_Gandalf > 10);
+		assertTrue(pw_Longsword > 10);
+		assertTrue(pr_Gandalf > 10);
+		assertTrue(pr_Shire > 10);
+		assertTrue(wr_Longsword > 10);
+		assertTrue(wr_Shire > 10);
+	
 	}
 	
 	// Tests to make sure that if the accusingPlayer is the only player that can disprove his suggestion
@@ -127,10 +164,20 @@ static ClueGame game;
 		while (index == game.getHumanPlayerIndex()) index = rand.nextInt(6);
 		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card(cardType.PLAYER, "Legolas"));
 		game.getPlayers().get(game.getHumanPlayerIndex()).giveCard(new Card(cardType.ROOM, "Rhun"));
-		
-		Card test = game.handleSuggestion("Legolas", "Dagger", "Rhun", game.getPlayers().get(index));
-		// Tests the human player will return one of its cards randomly 
-		assertTrue(test == new Card(cardType.PLAYER, "Legolas") || test == new Card(cardType.ROOM, "Rhun"));
+		int legolas = 0;
+		int rhun = 0;
+		// Run the test 100 times
+		for (int i = 0; i < 100; i++) {
+			Card test = game.handleSuggestion("Legolas", "Dagger", "Rhun", game.getPlayers().get(index));
+			if (test.equals(new Card(cardType.PLAYER, "Legolas"))) legolas++;
+			else if (test.equals(new Card(cardType.ROOM, "Rhun"))) rhun++;
+			else fail("Invalid card returned.");
+		}
+		// Ensure we have 100 total selections (fail should also ensure)
+		assertEquals(100, legolas + rhun);
+		// Ensure each target was selected more than once
+		assertTrue(legolas > 10);
+		assertTrue(rhun > 10);
 	}
 	
 	// Tests to make sure all players are queried when disproving a suggestion
@@ -147,11 +194,11 @@ static ClueGame game;
 		// Tests if two players can disprove the suggestion, the player who is first in the list shows its card
 		assertEquals(new Card(cardType.PLAYER, "Sam"), game.handleSuggestion("Sam", "Dagger", "Ash Mountains", game.getPlayers().get(4)));
 		// Tests if the human player will show its card if it is the only one that can disprove the suggestion
-		assertEquals(new Card(cardType.PLAYER, "Aragorn"), game.handleSuggestion("Aragorn", "The Ring", "Rivendell", game.getPlayers().get(game.getHumanPlayerIndex())));
+		assertEquals(new Card(cardType.PLAYER, "Aragorn"), game.handleSuggestion("Aragorn", "The Ring", "Rivendell", game.getPlayers().get(index)));
 		// Tests if only the accusing player can disprove his suggestion, null is returned
 		assertEquals(null, game.handleSuggestion("Gollum", "Bow", "Ash Mountains", game.getPlayers().get(5)));
 		// Tests if the last player in the list can disprove a suggestion when the accusing player is the first or second player in the list
-		assertEquals(new Card(cardType.ROOM, "Ash Mountains"), game.handleSuggestion("Gandalf", "Wizard Staff", "Aragorn", game.getPlayers().get(index)));
+		assertEquals(new Card(cardType.ROOM, "Ash Mountains"), game.handleSuggestion("Gandalf", "Wizard Staff", "Ash Mountains", game.getPlayers().get(index)));
 	}
 	
 	// Tests to make sure that if a room is in the set of targets, it is always chosen
