@@ -25,10 +25,14 @@ public class ClueGame {
 		board = new Board();
 		try {
 			board.loadConfigFiles();
-		} catch (IOException e) {
+			board.loadBoard();
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+	
+		board.calcAdjacencies();
+		
 		loadConfig();
 	}
 	

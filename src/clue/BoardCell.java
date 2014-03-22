@@ -10,6 +10,10 @@ public abstract class BoardCell {
 		this.column = column;
 	}
 
+	public BoardCell() {
+		
+	}
+	
 	/**
 	 * Based on the char W
 	 * @param walkway

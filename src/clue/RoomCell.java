@@ -19,6 +19,10 @@ public class RoomCell extends BoardCell{
 		decodeDirection(D);
 	
 	}
+	
+	public RoomCell() {
+		
+	}
 	public DoorDirection getDirection(){
 		return direction;
 	}

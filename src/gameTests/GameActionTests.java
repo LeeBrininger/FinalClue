@@ -218,11 +218,11 @@ static ClueGame game;
 	public void testConsiderLastRoom() {
 		game.getBoard().findTargets(game.getBoard().getCellAt(game.getBoard().calcIndex(13,9)), 3);
 		ComputerPlayer player = new ComputerPlayer("Gandalf", "WHITE", 10);
-		player.pickLocation(game.getBoard().getTargets());
 		// for loop to make sure that a target that isn't the room isn't chosen randomly on the first try
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 100; i++) {
+			player.setLastRoomVisited('G');
 			BoardCell selected = player.pickLocation(game.getBoard().getTargets());
-			assertFalse(game.getBoard().getCellAt(game.getBoard().calcIndex(15,9)) == selected);
+			assertFalse(game.getBoard().getCellAt(game.getBoard().calcIndex(15,9)).equals(selected));
 		}
 	}
 	

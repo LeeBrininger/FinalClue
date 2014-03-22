@@ -118,7 +118,7 @@ public class Board {
 		}
 		numRows = countRows;
    		scan.close();
-
+   		startTargets();
 	}
 	public void loadLegend() throws FileNotFoundException{
 		Scanner scan = new Scanner (new File (legendName +".txt"));

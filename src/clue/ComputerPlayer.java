@@ -22,26 +22,40 @@ public class ComputerPlayer extends Player {
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		// In case of no room targets
-		HashSet<BoardCell> targs = (HashSet<BoardCell>) targets;
+
 		boolean foundRoom = false;
 		
-		for (BoardCell i : targs) {
+		for (BoardCell i : targets) {
 			if (i.isRoom("" + i.getCellCode())) {
-				if (lastRoomVisited == (i.getCellCode())) {
-					// Do nothing if it's the last visited room
-					continue;
-				} else {
-					foundRoom = true;
+				if (lastRoomVisited != i.getCellCode()) {
+					lastRoomVisited=i.getCellCode();
 					target = i;
+					return target;
 				}
 			}
-			if (!foundRoom) {
-				Random random = new Random();
-				int randomTarget = random.nextInt(targets.length()) - 1;
-				target = targets[randomTarget];
+			
+		}
+		
+		Random random = new Random();
+		target = new RoomCell();
+		while (target instanceof RoomCell) {
+			int randomTarget = random.nextInt(targets.size());
+			int i =0;
+			for (BoardCell b : targets) {
+				if (i == randomTarget) target = b;
+				i++;
 			}
 		}
+		
 		return target;
+	}
+	
+	public void setLastRoomVisited(char c) {
+		lastRoomVisited = c;
+	}
+	
+	public char getLastRoomVisited () {
+		return lastRoomVisited;
 	}
 	
 	public Solution createSuggestion() {
