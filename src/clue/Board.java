@@ -35,8 +35,8 @@ public class Board {
         cells = new ArrayList<BoardCell> ();
         targets = new HashSet <BoardCell>();
         rooms = new HashMap <Character, String> ();
-        this.boardName = "ClueLayout";
-        this.legendName = "ClueLegend";
+        this.boardName = "gameLayout";
+        this.legendName = "legend";
         adjCells = new HashMap<Integer, LinkedList<Integer>>();
 
 

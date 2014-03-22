@@ -31,6 +31,10 @@ public class Player {
 		this.currentLocation = currentLocation;
 	}
 	
+	public BoardCell getCurrentLocation() {
+		return currentLocation;
+	}
+	
 	public String getName() {
 		return name;
 	}

@@ -18,12 +18,46 @@ public class RoomCell extends BoardCell{
 		cellCode = C.charAt(0);
 		decodeDirection(D);
 	
-			
-	
 	}
 	public DoorDirection getDirection(){
 		return direction;
 	}
+	
+	public String decodeRoomInitial(char code) {
+		String roomName= "";
+		switch (code) {
+			case 'R': 
+				roomName = "Rohan";
+				break;
+			case 'D':
+				roomName = "Dunland";
+				break;
+			case 'I':
+				roomName = "Mirkwood";
+				break;
+			case 'S': 
+				roomName = "The Shire";
+				break;
+			case 'N': 
+				roomName = "Rivendell";
+				break;
+			case 'G': 
+				roomName = "Gondor";
+				break;
+			case 'A': 
+				roomName = "Ash Mountains";
+				break;
+			case 'M':
+				roomName = "Mordor";
+				break;
+			case 'U': 
+				roomName = "Rhun";
+				break;
+		}
+		
+		return roomName;
+	}
+	
 	public void decodeDirection(String D){
         char d = D.charAt(0);
 		
@@ -58,12 +92,11 @@ public class RoomCell extends BoardCell{
 	}
 
 	public char getInitial() {
-		// TODO Auto-generated method stub
 		return cellCode;
 	}
 	public String toString (){
 		String roomCellInfo =super.toString();
-		 roomCellInfo += " Room. ";
+		 roomCellInfo += " Room: ";
 		if(!(this.direction==DoorDirection.NONE)){
 			roomCellInfo += "Direction: " + this.direction;
 		}

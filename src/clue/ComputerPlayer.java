@@ -1,7 +1,11 @@
 package clue;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.Random;
+
+import clue.Card.cardType;
 
 
 public class ComputerPlayer extends Player {
@@ -17,11 +21,19 @@ public class ComputerPlayer extends Player {
 	
 	
 	public BoardCell pickLocation(Set<BoardCell> targets) {
+		// In case of no room targets
+		HashSet<BoardCell> targs = (HashSet<BoardCell>) targets;
 		boolean foundRoom = false;
 		
+<<<<<<< HEAD
 		for (int i = 0; i < targets.length(); i++) {
 			if (targets[i].isRoom()) {
 				if (lastRoomVisited.equals(targets[i].getCellCode)) {
+=======
+		for (BoardCell i : targs) {
+			if (i.isRoom("" + i.getCellCode())) {
+				if (lastRoomVisited == (i.getCellCode())) {
+>>>>>>> ec22f884f9fe6adb1ffe40e75a50a841d3c56eef
 					// Do nothing if it's the last visited room
 					continue;
 				} else {
@@ -39,11 +51,20 @@ public class ComputerPlayer extends Player {
 	}
 	
 	public Solution createSuggestion() {
-		return null;
+		Random rand = new Random();
+		Card player = unseenCards.get(rand.nextInt(unseenCards.size()));
+		while (player.getCardType() != cardType.PLAYER) player = unseenCards.get(rand.nextInt(unseenCards.size()));
+		Card weapon = unseenCards.get(rand.nextInt(unseenCards.size()));
+		while (weapon.getCardType() != cardType.WEAPON) weapon = unseenCards.get(rand.nextInt(unseenCards.size()));
+		return new Solution(player.getName(), weapon.getName(), ((RoomCell) getCurrentLocation()).decodeRoomInitial(((RoomCell) getCurrentLocation()).getInitial()));
 	}
 	
-	public void updateSeen(Card seen) {
-		
+	public void updateSeen(Card seen, ArrayList<Card> deck) {
+		if (unseenCards.size() == 0) {
+			unseenCards = deck;
+			for (int i = 0; i<9; i++) unseenCards.remove(unseenCards.size()-1);
+		}
+		unseenCards.remove(seen);
 	}
 	
 }
