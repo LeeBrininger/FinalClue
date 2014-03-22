@@ -19,15 +19,14 @@ public class ComputerPlayer extends Player {
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		boolean foundRoom = false;
 		
-		for (targets : i) {
-			i.next();
-			if (i.isRoom()) {
-				if (lastRoomVisited.equals(i.getCellCode)) {
+		for (int i = 0; i < targets.length(); i++) {
+			if (targets[i].isRoom()) {
+				if (lastRoomVisited.equals(targets[i].getCellCode)) {
 					// Do nothing if it's the last visited room
 					continue;
 				} else {
 					foundRoom = true;
-					target = i;
+					target = targets[i];
 				}
 			}
 			if (!foundRoom) {
