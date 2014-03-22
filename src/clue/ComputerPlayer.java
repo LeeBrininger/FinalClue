@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.Random;
 
 import clue.Card.cardType;
 
@@ -22,6 +23,7 @@ public class ComputerPlayer extends Player {
 	public BoardCell pickLocation(Set<BoardCell> targets) {
 		// In case of no room targets
 		HashSet<BoardCell> targs = (HashSet<BoardCell>) targets;
+		boolean foundRoom = false;
 		
 		for (BoardCell i : targs) {
 			if (i.isRoom("" + i.getCellCode())) {
@@ -29,8 +31,14 @@ public class ComputerPlayer extends Player {
 					// Do nothing if it's the last visited room
 					continue;
 				} else {
+					foundRoom = true;
 					target = i;
 				}
+			}
+			if (!foundRoom) {
+				Random random = new Random();
+				int randomTarget = random.nextInt(targets.length()) - 1;
+				target = targets[randomTarget];
 			}
 		}
 		return target;
