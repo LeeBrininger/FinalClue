@@ -19,14 +19,12 @@ public class ControlFrame extends JFrame {
 		rollPanel = new FeedbackPanel("Die", "Roll", "short");
 		guessPanel = new FeedbackPanel("Guess", "Guess", "long");
 		resultPanel = new FeedbackPanel("Guess Result", "Feedback", "long");
-	
-		
+		 
 		add(turnPanel, BorderLayout.NORTH);
 		add(rollPanel, BorderLayout.WEST);
 		add(guessPanel, BorderLayout.CENTER);
 		add(resultPanel, BorderLayout.EAST);
 		turnPanel.setPreferredSize(new Dimension(300,100));
-		
 	}
 	
 	

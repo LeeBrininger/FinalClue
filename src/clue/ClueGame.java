@@ -1,4 +1,6 @@
 package clue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -6,10 +8,16 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
 import clue.Card.cardType;
 
 
-public class ClueGame {
+@SuppressWarnings("serial")
+public class ClueGame extends JFrame {
 	private ArrayList<Card> cards;
 	private ArrayList<Player> players;
 	private int humanPlayerIndex;
@@ -33,6 +41,22 @@ public class ClueGame {
 		board.calcAdjacencies();
 		
 		loadConfig();
+		
+		// JFrame setup
+		setTitle("Clue");
+		setSize(600,600);
+		
+		JMenuBar menu = new JMenuBar();
+		JMenu file = new JMenu("File");
+		JMenuItem showNotes = new JMenuItem("Show Detective Notes");
+        JMenuItem exit = new JMenuItem("Exit");
+        file.add(showNotes);
+        file.add(exit);
+        menu.add(file);
+        
+        showNotes.addActionListener(new MenuListener());
+        exit.addActionListener(new MenuListener());
+       	setJMenuBar(menu);
 	}
 	
 	public void deal() {
@@ -147,5 +171,22 @@ public class ClueGame {
 	
 	public Board getBoard() {
 		return board;
+	}
+	
+	class MenuListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (((JMenuItem) arg0.getSource()).getText().equals("Exit"))
+				System.exit(0);
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		ClueGame game = new ClueGame("componentConfig.csv");
+		
+		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		game.setVisible(true);
 	}
 }

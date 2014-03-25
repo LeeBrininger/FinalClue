@@ -4,7 +4,10 @@ import java.util.*;
 import java.io.File;
 import java.io.IOException;
 
-public class Board {
+import javax.swing.JPanel;
+
+@SuppressWarnings("serial")
+public class Board extends JPanel {
 
 	private ArrayList<BoardCell> cells;//contains the board layout
 	private Set<BoardCell> targets;

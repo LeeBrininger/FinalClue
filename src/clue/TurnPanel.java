@@ -3,6 +3,7 @@ package clue;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,7 +17,7 @@ public class TurnPanel extends JPanel {
 	private JButton nextPlayerButton, makeAccusationButton;
 	
 	public TurnPanel() {
-		JLabel whoseTurn = new JLabel("         Whose turn is it?");
+		JLabel whoseTurn = new JLabel("Whose turn is it?");
 		currentPlayerText = new JTextField();
 		nextPlayerButton = new JButton("Next Player");
 		makeAccusationButton = new JButton("Make Accusation");
@@ -24,20 +25,23 @@ public class TurnPanel extends JPanel {
 		
 		GridBagConstraints constraints = new GridBagConstraints();
 		
-		whoseTurn.setPreferredSize(new Dimension(150, 75));
 		currentPlayerText.setPreferredSize(new Dimension(100, 20));
 		nextPlayerButton.setPreferredSize(new Dimension(200,50));
 		makeAccusationButton.setPreferredSize(new Dimension(200, 50));
-		constraints.gridx = 0;
-		constraints.gridy= 0;
-		add(whoseTurn, constraints);
-	
+		
 		constraints.gridx = 1;
 		constraints.gridy= 0;
 		add(nextPlayerButton, constraints);
+		
 		constraints.gridx = 2;
 		constraints.gridy= 0;
 		add(makeAccusationButton, constraints);
+		
+		constraints.gridx = 0;
+		constraints.gridy= 0;
+		constraints.insets = new Insets(0,0,0,25);
+		add(whoseTurn, constraints);
+	
 		
 		constraints.gridx = 0;
 		constraints.gridy= 1;
