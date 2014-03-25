@@ -14,6 +14,7 @@ import java.io.IOException;
 //If a BadConfigFormatException is thrown, write a message to a
 //log file (you might think of this as a log file someone could submit to you,
 //if you distributed the code and a user encountered a problem).
+@SuppressWarnings("serial")
 public class BadConfigFormatException extends RuntimeException{
 public BadConfigFormatException(String string) throws IOException{
 	    	String fileName ="logfile.txt";

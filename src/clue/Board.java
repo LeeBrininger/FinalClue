@@ -1,10 +1,7 @@
 package clue;
 import java.io.FileNotFoundException;
 import java.util.*;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Board {
@@ -62,7 +59,6 @@ public class Board {
 	 * throws FileNotFoundException
 	 * @throws IOException 
 	 */
-	@SuppressWarnings("resource")
 	public void loadConfigFiles() throws IOException {
         loadLegend();
 		loadBoard();

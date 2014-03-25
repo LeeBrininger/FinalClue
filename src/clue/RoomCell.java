@@ -1,6 +1,4 @@
 package clue;
-import java.util.HashMap;
-import java.util.Map;
 
 //An enumerated type named DoorDirection that specifies the location of the door relative to the room. 
 //Values will be UP, DOWN, LEFT, RIGHT and NONE.
