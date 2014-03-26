@@ -53,7 +53,7 @@ public abstract class BoardCell {
 	public int getRow (){
 		return row;
 	}
-	public int getCol (){
+	public int getColumn (){
 		return column;
 	}
 	public void setRow(int row){

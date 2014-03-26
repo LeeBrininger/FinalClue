@@ -41,7 +41,7 @@ public class Board extends JPanel {
         this.boardName = "gameLayout";
         this.legendName = "legend";
         adjCells = new HashMap<Integer, LinkedList<Integer>>();
-
+        
 
     }
     
@@ -184,7 +184,7 @@ public class Board extends JPanel {
 	public void findTargets(BoardCell thisCell, int numSteps){
   		int referenceSteps =  numSteps;
 		previousTarget = thisCell;
-		LinkedList<Integer> intsTargets = getAdjList(calcIndex(thisCell.getRow(), thisCell.getCol()));
+		LinkedList<Integer> intsTargets = getAdjList(calcIndex(thisCell.getRow(), thisCell.getColumn()));
 
 		ArrayList <BoardCell> adjacentTargets = new ArrayList<BoardCell>();
    		for(Integer i : intsTargets){
@@ -194,7 +194,7 @@ public class Board extends JPanel {
 		}
 
 		for(BoardCell AT: adjacentTargets){
-            visited.set(calcIndex(AT.getRow(), AT.getCol()), true);
+            visited.set(calcIndex(AT.getRow(), AT.getColumn()), true);
 
             if(AT instanceof RoomCell)
                     if(((RoomCell) AT).getDirection()!=RoomCell.DoorDirection.NONE)//shorten path if Door found
@@ -209,7 +209,7 @@ public class Board extends JPanel {
 
 			//reset numSteps
 			numSteps = referenceSteps;
-			visited.set(calcIndex(AT.getRow(), AT.getCol()), false);
+			visited.set(calcIndex(AT.getRow(), AT.getColumn()), false);
 
 		}
     }
@@ -224,7 +224,7 @@ public class Board extends JPanel {
 	public boolean validTarget(int position){
 
         BoardCell nextTarget = getCellAt(position);
-        if(nextTarget.getRow()==target.getRow() && nextTarget.getCol()==target.getCol()){
+        if(nextTarget.getRow()==target.getRow() && nextTarget.getColumn()==target.getColumn()){
             return false;
         }
 
@@ -263,11 +263,11 @@ public class Board extends JPanel {
 
 			}
 			//is the door Left and alright
-			else if(cell.getDirection().equals(RoomCell.DoorDirection.LEFT)&&(previousTarget.getCol()==cell.getCol()-1)){
+			else if(cell.getDirection().equals(RoomCell.DoorDirection.LEFT)&&(previousTarget.getColumn()==cell.getColumn()-1)){
 				return true;
 			}
 			//is the door Right and not in need of a therapist
-			else if(cell.getDirection().equals(RoomCell.DoorDirection.RIGHT)&&(previousTarget.getCol()==cell.getCol()+1)) {
+			else if(cell.getDirection().equals(RoomCell.DoorDirection.RIGHT)&&(previousTarget.getColumn()==cell.getColumn()+1)) {
 				return true;
 	    	}
 		}

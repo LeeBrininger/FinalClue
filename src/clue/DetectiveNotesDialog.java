@@ -115,7 +115,10 @@ public class DetectiveNotesDialog extends JDialog {
 					break;
 			}
 			if (((JCheckBox) arg0.getSource()).isSelected()) combobox.removeItem(((JCheckBox)arg0.getSource()).getText());
-			else combobox.addItem(((JCheckBox)arg0.getSource()).getText());
+			else {
+				combobox.addItem(((JCheckBox)arg0.getSource()).getText());
+		
+			}
 			
 		}
 		

@@ -114,7 +114,7 @@ public class RoomCell extends BoardCell{
 	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		Rectangle rect = new Rectangle(row*5, column*5, 5, 5);
+		Rectangle rect = new Rectangle(getRow()*20, getColumn()*20, 20, 20);
 		g2.setColor(Color.WHITE);
 		g2.fill(rect);
 		g2.setColor(Color.BLACK);

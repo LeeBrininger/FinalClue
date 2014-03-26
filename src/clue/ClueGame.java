@@ -1,4 +1,5 @@
 package clue;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -47,6 +48,7 @@ public class ClueGame extends JFrame {
 		setTitle("Clue");
 		setSize(600,600);
 		
+		
 		JMenuBar menu = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenuItem showNotes = new JMenuItem("Show Detective Notes");
@@ -60,6 +62,8 @@ public class ClueGame extends JFrame {
        	setJMenuBar(menu);
        	
        	detectiveNotes = new DetectiveNotesDialog();
+       	
+       	add(board, BorderLayout.CENTER);
 	}
 	
 	public void deal() {
