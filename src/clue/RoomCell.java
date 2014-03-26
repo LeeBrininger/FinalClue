@@ -150,7 +150,7 @@ public class RoomCell extends BoardCell{
 		}
 		g2.fill(rect);
 		g2.draw(rect);
-		
+
 		if (isDoorway("" + cellCode+doorCode)) {
 			g2.setColor(Color.MAGENTA);
 			Rectangle door = null;
