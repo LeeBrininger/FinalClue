@@ -24,6 +24,7 @@ public class ClueGame extends JFrame {
 	private Solution solution;
 	private Board board;
 	private File componentConfig;
+	private DetectiveNotesDialog detectiveNotes;
 	
 	public ClueGame(String componentFile) {
 		componentConfig = new File(componentFile);
@@ -57,6 +58,8 @@ public class ClueGame extends JFrame {
         showNotes.addActionListener(new MenuListener());
         exit.addActionListener(new MenuListener());
        	setJMenuBar(menu);
+       	
+       	detectiveNotes = new DetectiveNotesDialog();
 	}
 	
 	public void deal() {
@@ -179,6 +182,7 @@ public class ClueGame extends JFrame {
 		public void actionPerformed(ActionEvent arg0) {
 			if (((JMenuItem) arg0.getSource()).getText().equals("Exit"))
 				System.exit(0);
+			else detectiveNotes.setVisible(!detectiveNotes.isVisible());
 		}
 		
 	}
