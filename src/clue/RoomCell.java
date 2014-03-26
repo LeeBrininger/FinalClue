@@ -119,6 +119,18 @@ public class RoomCell extends BoardCell{
 		g2.fill(rect);
 		g2.setColor(Color.BLACK);
 		g2.draw(rect);
+		g2.setColor(Color.BLUE);
+		if (direction.equals(DoorDirection.UP)) {
+			Rectangle door = new Rectangle(getRow()*20, getColumn()*20, 20, 4);
+		} else if (direction.equals(DoorDirection.DOWN)) {
+			Rectangle door = new Rectangle((getRow()*20) - 16, getColumn()*20, 20, 4);
+		} else if (direction.equals(DoorDirection.LEFT)) {
+			Rectangle door = new Rectangle(getRow()*20, getColumn()*20, 4, 20);
+		} else {
+			// Right
+			Rectangle door = new Rectangle(getRow()*20, (getColumn()*20) + 16, 4, 20);
+		}
+		g2.fill(door);
 	}
 	
 

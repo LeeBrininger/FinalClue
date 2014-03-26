@@ -49,6 +49,7 @@ public class Board extends JPanel {
     	for (BoardCell cell : cells) {
     		cell.draw(g);
     	}
+    	
     }
 
     //simple getter function for all cell type, so walkpaths and rooms
