@@ -1,5 +1,7 @@
 package clue;
 
+import java.awt.Graphics;
+
 public abstract class BoardCell {
 	private int row;
 	private int column;
@@ -78,6 +80,8 @@ public abstract class BoardCell {
 		if (this.row == b.row && this.column == b.column) return true;
 		else return false;
 	}
+	
+	public abstract void draw(Graphics g);
 
 
 	

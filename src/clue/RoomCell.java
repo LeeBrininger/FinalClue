@@ -1,5 +1,10 @@
 package clue;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
 //An enumerated type named DoorDirection that specifies the location of the door relative to the room. 
 //Values will be UP, DOWN, LEFT, RIGHT and NONE.
 //Door direction is explained in more detail below.
@@ -104,6 +109,16 @@ public class RoomCell extends BoardCell{
 		}
 		return roomCellInfo;
 			
+	}
+	
+	@Override
+	public void draw(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		Rectangle rect = new Rectangle(row*5, column*5, 5, 5);
+		g2.setColor(Color.WHITE);
+		g2.fill(rect);
+		g2.setColor(Color.BLACK);
+		g2.draw(rect);
 	}
 	
 

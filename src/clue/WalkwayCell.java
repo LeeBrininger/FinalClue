@@ -1,5 +1,10 @@
 package clue;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+
 public class WalkwayCell extends BoardCell {
 	public static int numWalkWay;
 	public WalkwayCell(int row, int column){
@@ -14,5 +19,14 @@ public class WalkwayCell extends BoardCell {
 		return super.toString()+" Walkway";
 	}
 	
+	@Override
+	public void draw(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		Rectangle rect = new Rectangle(row*5, column*5, 5, 5);
+		g2.setColor(Color.YELLOW);
+		g2.fill(rect);
+		g2.setColor(Color.BLACK);
+		g2.draw(rect);
+	}
 
 }

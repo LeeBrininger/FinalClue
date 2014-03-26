@@ -1,10 +1,13 @@
 package clue;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JPanel;
+
+import clue.BoardCell;
 
 @SuppressWarnings("serial")
 public class Board extends JPanel {
@@ -41,7 +44,12 @@ public class Board extends JPanel {
 
 
     }
-
+    
+    public void paintComponent(Graphics g) {
+    	for (BoardCell cell : cells) {
+    		cell.draw(g);
+    	}
+    }
 
     //simple getter function for all cell type, so walkpaths and rooms
 	public ArrayList<BoardCell> getCells(){
