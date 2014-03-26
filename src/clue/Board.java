@@ -1,4 +1,6 @@
 package clue;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -23,12 +25,14 @@ public class Board extends JPanel {
 	private String legendName;
  	private Map<Integer, LinkedList<Integer>> adjCells;
 	private BoardCell previousTarget; //for determining validity of next target
+	private ArrayList<Player> players;
 
 	//constructor that requires input locations is known
 	public Board(String fileLayout, String fileLegend) {
 		cells = new ArrayList<BoardCell> ();
 		targets = new HashSet <BoardCell>();
 		rooms = new HashMap <Character, String> ();
+		players = new ArrayList<Player>();
 		this.boardName = fileLayout;
 		this.legendName = fileLegend;
         adjCells = new HashMap<Integer, LinkedList<Integer>>();
@@ -41,7 +45,6 @@ public class Board extends JPanel {
         this.boardName = "gameLayout";
         this.legendName = "legend";
         adjCells = new HashMap<Integer, LinkedList<Integer>>();
-        
 
     }
     
@@ -49,6 +52,22 @@ public class Board extends JPanel {
     	for (BoardCell cell : cells) {
     		cell.draw(g);
     	}
+    	for (Player p : players) 
+    		p.draw(g);
+    	g.setColor(Color.BLACK);
+    	g.drawString("ROHAN", 25*2 + 10, 25*1 + 15);
+    	g.drawString("MORDOR", 16*25 + 14, 17*25);
+    	g.drawString("GONDOR", 25*8, 25*17);
+    	g.drawString("THE SHIRE", 25*1, 25*10 + 15);
+    	g.drawString("RIVENDELL", 25*9, 25*10 + 15);
+    	g.drawString("ASH MOUNTAINS", 25*16 + 10, 25*21 + 5);
+    	g.drawString("RHUN", 25*17 + 10, 25*11 + 15);
+    	g.drawString("MIRKWOOD", 25*17, 25*5);
+    	g.drawString("DUNLAND", 25*1, 25*17 + 15);
+    }
+    
+    public void setPlayers(ArrayList<Player> players)  {
+    	this.players = players;
     }
 
     //simple getter function for all cell type, so walkpaths and rooms

@@ -1,5 +1,6 @@
 package clue;
 import java.awt.BorderLayout;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -44,9 +45,11 @@ public class ClueGame extends JFrame {
 		
 		loadConfig();
 		
+		board.setPlayers(players);
+		
 		// JFrame setup
 		setTitle("Clue");
-		setSize(600,600);
+		setSize(650,650);
 		
 		
 		JMenuBar menu = new JMenuBar();
@@ -64,6 +67,10 @@ public class ClueGame extends JFrame {
        	detectiveNotes = new DetectiveNotesDialog();
        	
        	add(board, BorderLayout.CENTER);
+	}
+	
+	public void paintComponent(Graphics g) {
+		for (Player p : players) p.draw(g);
 	}
 	
 	public void deal() {
@@ -110,6 +117,7 @@ public class ClueGame extends JFrame {
 						humanPlayerIndex = i;
 					}
 					else players.add(new ComputerPlayer (separated[1], separated[2],Integer.parseInt(separated[3])));
+					players.get(players.size()-1).setCurrentLocation(board.getCellAt(Integer.parseInt(separated[3])));
 				}
 				cards.add(new Card(cardType.valueOf(separated[0]),separated[1]));
 			}

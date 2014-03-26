@@ -14,12 +14,14 @@ public class RoomCell extends BoardCell{
 		UP, DOWN, LEFT, RIGHT, NONE
 	};
 	private DoorDirection direction;
+	private char doorCode;
 
 	//ArrayList<>
 	public RoomCell(int row, int column, String C, String D){
 		super(row, column);
 		cellCode = C.charAt(0);
 		decodeDirection(D);
+		doorCode = D.charAt(0);
 	
 	}
 	
@@ -114,11 +116,63 @@ public class RoomCell extends BoardCell{
 	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		Rectangle rect = new Rectangle(getRow()*20, getColumn()*20, 20, 20);
-		g2.setColor(Color.WHITE);
+		Rectangle rect = new Rectangle(getColumn()*25, getRow()*25, 25, 25);
+		
+		
+		switch (cellCode) {
+		case 'M':
+			g2.setColor(Color.RED);
+			break;
+		case 'R':
+			g2.setColor(Color.ORANGE);
+			break;
+		case 'S':
+			g2.setColor(Color.GREEN);
+			break;
+		case 'I':
+			g2.setColor(Color.CYAN);
+			break;
+		case 'N':
+			g2.setColor(Color.WHITE);
+			break;
+		case 'D':
+			g2.setColor(Color.BLUE);
+			break;
+		case 'G':
+			g2.setColor(Color.PINK);
+			break;
+		case 'A':
+			g2.setColor(Color.GRAY);
+			break;
+		case 'U':
+			g2.setColor(Color.LIGHT_GRAY);
+			break;
+		}
 		g2.fill(rect);
-		g2.setColor(Color.BLACK);
 		g2.draw(rect);
+		
+		if (isDoorway("" + cellCode+doorCode)) {
+			g2.setColor(Color.MAGENTA);
+			Rectangle door = null;
+			switch (direction) {
+				case UP:
+					door = new Rectangle(getColumn()*25, getRow()*25, 25, 25/4);
+					break;
+				case DOWN:
+					door = new Rectangle(getColumn()*25, getRow()*25+25*3/4, 25, 5);
+					break;
+				case RIGHT:
+					door = new Rectangle(getColumn()*25+25*3/4, getRow()*25, 25/4, 25);
+					break;
+				case LEFT:
+					door = new Rectangle(getColumn()*25, getRow()*25, 25/4, 25);
+					break;
+				case NONE:
+					break;
+			}
+			
+			g2.fill(door);
+		}
 	}
 	
 

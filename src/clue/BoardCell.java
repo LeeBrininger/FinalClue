@@ -43,7 +43,7 @@ public abstract class BoardCell {
 	}
 	public static boolean isDoorway(String doorway){
 		
-		if (doorway.length() == 2){
+		if (doorway.length() == 2 && doorway.charAt(1) != 'N'){
 			return true;
 		}
 		else{

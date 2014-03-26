@@ -1,5 +1,6 @@
 package clue;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -67,6 +68,13 @@ public class Player {
 		return color;
 	}
 	
+	public void draw(Graphics g) {
+		g.setColor(color);
+		g.fillOval(currentLocation.getColumn()*25, currentLocation.getRow()*25, 25, 25);
+
+		g.setColor(Color.BLACK);
+		g.drawOval(currentLocation.getColumn()*25, currentLocation.getRow()*25, 25, 25);
+	}
 	
 	
 }

@@ -22,7 +22,7 @@ public class WalkwayCell extends BoardCell {
 	@Override
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		Rectangle rect = new Rectangle(getRow()*20, getColumn()*20, 20, 20);
+		Rectangle rect = new Rectangle(getColumn()*25, getRow()*25, 25, 25);
 		g2.setColor(Color.YELLOW);
 		g2.fill(rect);
 		g2.setColor(Color.BLACK);
