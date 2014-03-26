@@ -55,15 +55,15 @@ public class Board extends JPanel {
     	for (Player p : players) 
     		p.draw(g);
     	g.setColor(Color.BLACK);
-    	g.drawString("ROHAN", 25*2 + 10, 25*1 + 15);
-    	g.drawString("MORDOR", 16*25 + 14, 17*25);
+    	g.drawString("ROHAN", 25*2 + 10, 25*1 + 25*3/4);
+    	g.drawString("MORDOR", 16*25 + 25*7/10, 17*25);
     	g.drawString("GONDOR", 25*8, 25*17);
-    	g.drawString("THE SHIRE", 25*1, 25*10 + 15);
-    	g.drawString("RIVENDELL", 25*9, 25*10 + 15);
-    	g.drawString("ASH MOUNTAINS", 25*16 + 10, 25*21 + 5);
-    	g.drawString("RHUN", 25*17 + 10, 25*11 + 15);
+    	g.drawString("THE SHIRE", 25*1, 25*10 + 25*3/4);
+    	g.drawString("RIVENDELL", 25*9, 25*10 + 25*3/4);
+    	g.drawString("ASH MOUNTAINS", 25*16 + 10, 25*21 + 25/4);
+    	g.drawString("RHUN", 25*17 + 25/2, 25*11 + 25*3/4);
     	g.drawString("MIRKWOOD", 25*17, 25*5);
-    	g.drawString("DUNLAND", 25*1, 25*17 + 15);
+    	g.drawString("DUNLAND", 25*1, 25*17 + 25*3/4);
     }
     
     public void setPlayers(ArrayList<Player> players)  {

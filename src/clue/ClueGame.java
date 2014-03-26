@@ -27,6 +27,7 @@ public class ClueGame extends JFrame {
 	private Board board;
 	private File componentConfig;
 	private DetectiveNotesDialog detectiveNotes;
+	private ControlFrame controls;
 	
 	public ClueGame(String componentFile) {
 		componentConfig = new File(componentFile);
@@ -49,7 +50,7 @@ public class ClueGame extends JFrame {
 		
 		// JFrame setup
 		setTitle("Clue");
-		setSize(650,650);
+		setSize(24*25,800);
 		
 		
 		JMenuBar menu = new JMenuBar();
@@ -67,6 +68,10 @@ public class ClueGame extends JFrame {
        	detectiveNotes = new DetectiveNotesDialog();
        	
        	add(board, BorderLayout.CENTER);
+       	
+       	controls = new ControlFrame();
+       	
+       	add(controls.getContentPane(), BorderLayout.SOUTH);
 	}
 	
 	public void paintComponent(Graphics g) {

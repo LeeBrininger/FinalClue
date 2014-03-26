@@ -159,7 +159,7 @@ public class RoomCell extends BoardCell{
 					door = new Rectangle(getColumn()*25, getRow()*25, 25, 25/4);
 					break;
 				case DOWN:
-					door = new Rectangle(getColumn()*25, getRow()*25+25*3/4, 25, 5);
+					door = new Rectangle(getColumn()*25, getRow()*25+25*3/4, 25, 25/4);
 					break;
 				case RIGHT:
 					door = new Rectangle(getColumn()*25+25*3/4, getRow()*25, 25/4, 25);
