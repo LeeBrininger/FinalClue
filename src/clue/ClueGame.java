@@ -211,5 +211,9 @@ public class ClueGame extends JFrame {
 		
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		game.setVisible(true);
+		
+		System.out.println(game.getCards().contains(new Card(cardType.PLAYER, "Professor Plum")));
+		((ComputerPlayer) game.getPlayers().get(0)).updateSeen(new Card(cardType.PLAYER, "Professor Plum"), game.getCards());
+		System.out.println(game.getCards().contains(new Card(cardType.PLAYER, "Professor Plum")));
 	}
 }

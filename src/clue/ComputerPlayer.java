@@ -65,7 +65,7 @@ public class ComputerPlayer extends Player {
 	
 	public void updateSeen(Card seen, ArrayList<Card> deck) {
 		if (unseenCards.size() == 0) {
-			unseenCards = deck;
+			unseenCards = new ArrayList<Card>(deck);
 			//removes the rooms from the deck
 			for (int i = 0; i<8; i++) unseenCards.remove(unseenCards.size()-1);
 		}
