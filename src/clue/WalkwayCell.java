@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 public class WalkwayCell extends BoardCell {
-	public static int numWalkWay;
+	
 	public WalkwayCell(int row, int column){
 		super(row, column);
 		cellCode = 'W';

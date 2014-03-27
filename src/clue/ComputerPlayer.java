@@ -1,5 +1,4 @@
 package clue;
-import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
@@ -67,7 +66,8 @@ public class ComputerPlayer extends Player {
 	public void updateSeen(Card seen, ArrayList<Card> deck) {
 		if (unseenCards.size() == 0) {
 			unseenCards = deck;
-			for (int i = 0; i<9; i++) unseenCards.remove(unseenCards.size()-1);
+			//removes the rooms from the deck
+			for (int i = 0; i<8; i++) unseenCards.remove(unseenCards.size()-1);
 		}
 		unseenCards.remove(seen);
 	}

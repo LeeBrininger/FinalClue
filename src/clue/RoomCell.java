@@ -22,7 +22,6 @@ public class RoomCell extends BoardCell{
 		cellCode = C.charAt(0);
 		decodeDirection(D);
 		doorCode = D.charAt(0);
-	
 	}
 	
 	public RoomCell() {

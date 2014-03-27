@@ -1,6 +1,5 @@
 package clue;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -13,6 +12,8 @@ import clue.BoardCell;
 
 @SuppressWarnings("serial")
 public class Board extends JPanel {
+	
+	private final int CELL_LENGTH = 25;
 
 	private ArrayList<BoardCell> cells;//contains the board layout
 	private Set<BoardCell> targets;
@@ -42,8 +43,8 @@ public class Board extends JPanel {
         cells = new ArrayList<BoardCell> ();
         targets = new HashSet <BoardCell>();
         rooms = new HashMap <Character, String> ();
-        this.boardName = "gameLayout";
-        this.legendName = "legend";
+        this.boardName = "ClueLayout";
+        this.legendName = "ClueLegend";
         adjCells = new HashMap<Integer, LinkedList<Integer>>();
 
     }
@@ -55,15 +56,15 @@ public class Board extends JPanel {
     	for (Player p : players) 
     		p.draw(g);
     	g.setColor(Color.BLACK);
-    	g.drawString("ROHAN", 25*2 + 10, 25*1 + 25*3/4);
-    	g.drawString("MORDOR", 16*25 + 25*7/10, 17*25);
-    	g.drawString("GONDOR", 25*8, 25*17);
-    	g.drawString("THE SHIRE", 25*1, 25*10 + 25*3/4);
-    	g.drawString("RIVENDELL", 25*9, 25*10 + 25*3/4);
-    	g.drawString("ASH MOUNTAINS", 25*16 + 10, 25*21 + 25/4);
-    	g.drawString("RHUN", 25*17 + 25/2, 25*11 + 25*3/4);
-    	g.drawString("MIRKWOOD", 25*17, 25*5);
-    	g.drawString("DUNLAND", 25*1, 25*17 + 25*3/4);
+    	g.drawString("ROHAN", CELL_LENGTH*2 + 10, CELL_LENGTH*1 + CELL_LENGTH*3/4);
+    	g.drawString("MORDOR", 17*CELL_LENGTH, 17*CELL_LENGTH);
+    	g.drawString("GONDOR", CELL_LENGTH*8, CELL_LENGTH*17);
+    	g.drawString("THE SHIRE", CELL_LENGTH*1, CELL_LENGTH*10 + CELL_LENGTH*3/4);
+    	g.drawString("RIVENDELL", CELL_LENGTH*9, CELL_LENGTH*10 + CELL_LENGTH*3/4);
+    	g.drawString("ASH MOUNTAINS", CELL_LENGTH*16 + 10, CELL_LENGTH*21 + CELL_LENGTH/4);
+    	g.drawString("RHUN", CELL_LENGTH*17 + CELL_LENGTH/2, CELL_LENGTH*11 + CELL_LENGTH*3/4);
+    	g.drawString("MIRKWOOD", CELL_LENGTH*17 + CELL_LENGTH/2, CELL_LENGTH*5);
+    	g.drawString("DUNLAND", CELL_LENGTH*1, CELL_LENGTH*17 + CELL_LENGTH*3/4);
     }
     
     public void setPlayers(ArrayList<Player> players)  {
@@ -235,6 +236,10 @@ public class Board extends JPanel {
 
 	public BoardCell getCellAt (int position){
         return cells.get(position);
+	}
+	
+	public int getCellLength() {
+		return CELL_LENGTH;
 	}
 
 	/*

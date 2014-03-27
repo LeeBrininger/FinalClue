@@ -50,7 +50,7 @@ public class ClueGame extends JFrame {
 		
 		// JFrame setup
 		setTitle("Clue");
-		setSize(24*25,800);
+		setSize(24*board.getCellLength(),32*board.getCellLength());
 		
 		
 		JMenuBar menu = new JMenuBar();
@@ -205,7 +205,7 @@ public class ClueGame extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		ClueGame game = new ClueGame("componentConfig.csv");
+		ClueGame game = new ClueGame("componentConfig2.csv");
 		
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		game.setVisible(true);
