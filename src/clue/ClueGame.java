@@ -119,12 +119,13 @@ public class ClueGame extends JFrame {
 				String next = scan.nextLine();
 				String[] separated = next.split(",");
 				if (separated[0].equals("PLAYER")) {
+					int startIndex = board.calcIndex(Integer.parseInt(separated[3]), Integer.parseInt(separated[4]));
 					if (i == character) {
-						players.add(new HumanPlayer (separated[1], separated[2],Integer.parseInt(separated[3])));
+						players.add(new HumanPlayer (separated[1], separated[2],startIndex));
 						humanPlayerIndex = i;
 					}
-					else players.add(new ComputerPlayer (separated[1], separated[2],Integer.parseInt(separated[3])));
-					players.get(players.size()-1).setCurrentLocation(board.getCellAt(Integer.parseInt(separated[3])));
+					else players.add(new ComputerPlayer (separated[1], separated[2],startIndex));
+					players.get(players.size()-1).setCurrentLocation(board.getCellAt(startIndex));
 				}
 				cards.add(new Card(cardType.valueOf(separated[0]),separated[1]));
 			}
@@ -211,9 +212,5 @@ public class ClueGame extends JFrame {
 		
 		game.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		game.setVisible(true);
-		
-		System.out.println(game.getCards().contains(new Card(cardType.PLAYER, "Professor Plum")));
-		((ComputerPlayer) game.getPlayers().get(0)).updateSeen(new Card(cardType.PLAYER, "Professor Plum"), game.getCards());
-		System.out.println(game.getCards().contains(new Card(cardType.PLAYER, "Professor Plum")));
 	}
 }
