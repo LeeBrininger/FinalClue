@@ -15,12 +15,16 @@ public class RoomCell extends BoardCell{
 	};
 	private DoorDirection direction;
 	private char doorCode;
+	private int nameRow, nameColumn;
+	String roomName;
 
 	//ArrayList<>
 	public RoomCell(int row, int column, String C, String D){
 		super(row, column);
+		roomName = "";
 		cellCode = C.charAt(0);
-		decodeDirection(D);
+		decodeRoomInitial(C.charAt(0));
+		decodeDirection(row, column, D);
 		doorCode = D.charAt(0);
 	}
 	
@@ -32,41 +36,40 @@ public class RoomCell extends BoardCell{
 	}
 	
 	public String decodeRoomInitial(char code) {
-		String roomName= "";
 		switch (code) {
-			case 'R': 
-				roomName = "Rohan";
-				break;
-			case 'D':
-				roomName = "Dunland";
+			case 'P': 
+				roomName = "Billiard Room";
 				break;
 			case 'I':
-				roomName = "Mirkwood";
+				roomName = "Library";
 				break;
-			case 'S': 
-				roomName = "The Shire";
+			case 'C':
+				roomName = "Conservatory";
 				break;
-			case 'N': 
-				roomName = "Rivendell";
+			case 'L': 
+				roomName = "Lounge";
 				break;
-			case 'G': 
-				roomName = "Gondor";
+			case 'B': 
+				roomName = "Ballroom";
 				break;
-			case 'A': 
-				roomName = "Ash Mountains";
+			case 'D': 
+				roomName = "Dining Room";
 				break;
-			case 'M':
-				roomName = "Mordor";
+			case 'H': 
+				roomName = "Hall";
 				break;
-			case 'U': 
-				roomName = "Rhun";
+			case 'S':
+				roomName = "Study";
+				break;
+			case 'K': 
+				roomName = "Kitchen";
 				break;
 		}
 		
 		return roomName;
 	}
 	
-	public void decodeDirection(String D){
+	public void decodeDirection(int row, int column, String D){
         char d = D.charAt(0);
 		
 		switch(d){
@@ -78,6 +81,10 @@ public class RoomCell extends BoardCell{
 			case('R'): direction = DoorDirection.RIGHT;
 						break;
 			case('D'): direction = DoorDirection.DOWN;
+						break;
+			case('T'): nameRow = row;
+						nameColumn = column;
+						direction = DoorDirection.NONE;
 						break;
 			
 			default: direction = DoorDirection.NONE;
@@ -118,40 +125,13 @@ public class RoomCell extends BoardCell{
 		Rectangle rect = new Rectangle(getColumn()*25, getRow()*25, 25, 25);
 		
 		
-		switch (cellCode) {
-		case 'M':
-			g2.setColor(Color.RED);
-			break;
-		case 'R':
-			g2.setColor(Color.ORANGE);
-			break;
-		case 'S':
-			g2.setColor(Color.GREEN);
-			break;
-		case 'I':
-			g2.setColor(Color.CYAN);
-			break;
-		case 'N':
-			g2.setColor(Color.WHITE);
-			break;
-		case 'D':
-			g2.setColor(Color.BLUE);
-			break;
-		case 'G':
-			g2.setColor(Color.PINK);
-			break;
-		case 'A':
-			g2.setColor(Color.GRAY);
-			break;
-		case 'U':
-			g2.setColor(Color.LIGHT_GRAY);
-			break;
-		}
+		
+		if (cellCode == 'O') g2.setColor(Color.RED);
+		else g2.setColor(Color.LIGHT_GRAY);
 		g2.fill(rect);
 		g2.draw(rect);
 
 		if (isDoorway("" + cellCode+doorCode)) {
-			g2.setColor(Color.MAGENTA);
 			Rectangle door = null;
 			switch (direction) {
 				case UP:
@@ -169,8 +149,10 @@ public class RoomCell extends BoardCell{
 				case NONE:
 					break;
 			}
-			
-			g2.fill(door);
+			g.setColor(Color.BLACK);
+			if (nameRow != 0 && nameColumn != 0 && roomName != "") g.drawString(roomName, nameColumn*25, nameRow*25);
+			g2.setColor(Color.MAGENTA);
+			if (door!=null) g2.fill(door);
 		}
 	}
 	

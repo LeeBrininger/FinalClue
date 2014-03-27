@@ -50,7 +50,7 @@ public class ClueGame extends JFrame {
 		
 		// JFrame setup
 		setTitle("Clue");
-		setSize(24*board.getCellLength(),32*board.getCellLength());
+		
 		
 		
 		JMenuBar menu = new JMenuBar();
@@ -72,6 +72,8 @@ public class ClueGame extends JFrame {
        	controls = new ControlFrame();
        	
        	add(controls.getContentPane(), BorderLayout.SOUTH);
+       	
+       	setSize((board.getNumColumns()+1)*board.getCellLength(),(board.getNumRows()+1)*board.getCellLength() + controls.getHeight());
 	}
 	
 	public void paintComponent(Graphics g) {
