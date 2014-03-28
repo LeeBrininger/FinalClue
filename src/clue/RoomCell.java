@@ -154,11 +154,11 @@ public class RoomCell extends BoardCell{
 				case NONE:
 					break;
 			}
-			g.setColor(Color.BLACK);
-			if (nameRow != 0 && nameColumn != 0 && roomName != "") g.drawString(roomName, nameColumn*25, nameRow*25);
 			g2.setColor(Color.MAGENTA);
 			if (door!=null) g2.fill(door);
 		}
+		g.setColor(Color.BLACK);
+		if (nameRow != 0 && nameColumn != 0 && roomName != "") g.drawString(roomName, nameColumn*25, nameRow*25);
 	}
 	
 
