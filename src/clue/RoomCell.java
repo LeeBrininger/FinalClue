@@ -14,7 +14,6 @@ public class RoomCell extends BoardCell{
 		UP, DOWN, LEFT, RIGHT, NONE
 	};
 	private DoorDirection direction;
-	private char doorCode;
 	private int nameRow, nameColumn;
 	String roomName;
 
@@ -25,7 +24,6 @@ public class RoomCell extends BoardCell{
 		cellCode = C.charAt(0);
 		decodeRoomInitial(C.charAt(0));
 		decodeDirection(row, column, D);
-		doorCode = D.charAt(0);
 	}
 	
 	public RoomCell() {
@@ -102,6 +100,13 @@ public class RoomCell extends BoardCell{
 //	We will also override the draw method, when we do the GUI
 	// DoorDirection doorDirection;
 
+	@Override 
+	public boolean isDoorway() {
+		if (direction.equals(null) || direction.equals(DoorDirection.NONE)) {
+			return false;
+		}
+		return true;
+	}
 	public boolean isRoom(char room){
 		return true;
 	}
@@ -131,7 +136,7 @@ public class RoomCell extends BoardCell{
 		g2.fill(rect);
 		g2.draw(rect);
 
-		if (isDoorway("" + cellCode+doorCode)) {
+		if (isDoorway()) {
 			Rectangle door = null;
 			switch (direction) {
 				case UP:

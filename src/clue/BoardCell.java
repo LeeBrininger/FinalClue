@@ -41,14 +41,8 @@ public abstract class BoardCell {
 			return false;
 		}
 	}
-	public static boolean isDoorway(String doorway){
-		
-		if (doorway.length() == 2 && doorway.charAt(1) != 'N'){
-			return true;
-		}
-		else{
-			return false;
-		}
+	public boolean isDoorway(){
+		return false; 
 	}
 	public int getRow (){
 		return row;
