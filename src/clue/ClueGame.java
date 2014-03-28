@@ -28,12 +28,18 @@ public class ClueGame extends JFrame {
 	private File componentConfig;
 	private DetectiveNotesDialog detectiveNotes;
 	private ControlFrame controls;
+	private static final String defaultLayoutFile = "ClueLayout";
+	private static final String defaultLegendFile = "ClueLegend";
 	
 	public ClueGame(String componentFile) {
+		this(componentFile, defaultLayoutFile, defaultLegendFile);
+	}
+	
+	public ClueGame(String componentFile, String layoutFile, String legendFile) {
 		componentConfig = new File(componentFile);
 		cards = new ArrayList<Card>();
 		players = new ArrayList<Player>();
-		board = new Board();
+		board = new Board(layoutFile, legendFile);
 		try {
 			board.loadConfigFiles();
 			board.loadBoard();

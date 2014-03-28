@@ -17,7 +17,7 @@ static ClueGame game;
 	// Makes a new game and loads configuration files
 	@Before
 	public void setup(){ 
-		game = new ClueGame("componentConfig.csv");
+		game = new ClueGame("componentConfig.csv", "gameLayout", "legend");
 	}
 	
 	@Test
