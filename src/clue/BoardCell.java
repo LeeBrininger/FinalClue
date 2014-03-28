@@ -41,8 +41,8 @@ public abstract class BoardCell {
 			return false;
 		}
 	}
-	public boolean isDoorway(){
-		return false; 
+	public boolean isDoorway(){ //overridden in RoomCell
+		return false;
 	}
 	public int getRow (){
 		return row;

@@ -119,7 +119,12 @@ public class ClueGame extends JFrame {
 				String next = scan.nextLine();
 				String[] separated = next.split(",");
 				if (separated[0].equals("PLAYER")) {
-					int startIndex = board.calcIndex(Integer.parseInt(separated[3]), Integer.parseInt(separated[4]));
+					int startIndex;
+					if (separated.length == 5) { //file has coordinates for player starting position
+						startIndex = board.calcIndex(Integer.parseInt(separated[3]), Integer.parseInt(separated[4]));
+					} else { //file has straight index
+						startIndex = Integer.parseInt(separated[3]);
+					}
 					if (i == character) {
 						players.add(new HumanPlayer (separated[1], separated[2],startIndex));
 						humanPlayerIndex = i;
