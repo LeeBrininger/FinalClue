@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.HashMap;
+import java.util.Map;
 
 //An enumerated type named DoorDirection that specifies the location of the door relative to the room. 
 //Values will be UP, DOWN, LEFT, RIGHT and NONE.
@@ -15,6 +17,7 @@ public class RoomCell extends BoardCell{
 	};
 	private DoorDirection direction;
 	private int nameRow, nameColumn;
+	private static Map<Character, String> roomNameMap;
 	String roomName;
 
 	//ArrayList<>
@@ -34,36 +37,11 @@ public class RoomCell extends BoardCell{
 	}
 	
 	public String decodeRoomInitial(char code) {
-		switch (code) {
-			case 'P': 
-				roomName = "Billiard Room";
-				break;
-			case 'I':
-				roomName = "Library";
-				break;
-			case 'C':
-				roomName = "Conservatory";
-				break;
-			case 'L': 
-				roomName = "Lounge";
-				break;
-			case 'B': 
-				roomName = "Ballroom";
-				break;
-			case 'D': 
-				roomName = "Dining Room";
-				break;
-			case 'H': 
-				roomName = "Hall";
-				break;
-			case 'S':
-				roomName = "Study";
-				break;
-			case 'K': 
-				roomName = "Kitchen";
-				break;
+		if (roomNameMap.containsKey(code)) {
+			roomName = roomNameMap.get(code);
+		} else {
+			roomName = "No room name found";
 		}
-		
 		return roomName;
 	}
 	
@@ -113,6 +91,10 @@ public class RoomCell extends BoardCell{
 
 	public char getInitial() {
 		return cellCode;
+	}
+	
+	public static void setRoomNameMap(Map<Character, String> roomNameMap) { //set the map of room names to room initials
+		RoomCell.roomNameMap = roomNameMap;
 	}
 	public String toString (){
 		String roomCellInfo =super.toString();

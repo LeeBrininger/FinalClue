@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -121,6 +123,7 @@ public class ClueGame extends JFrame {
 			Scanner scan = new Scanner(componentConfig);
 			Random rand = new Random();
 			int character = rand.nextInt(6);
+			Map <Character, String> roomNameMap = new HashMap<Character, String>();
 			for (int i=0; scan.hasNextLine(); i++) {
 				String next = scan.nextLine();
 				String[] separated = next.split(",");
