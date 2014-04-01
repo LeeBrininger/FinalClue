@@ -1,0 +1,21 @@
+PLAYER,Professor Plum,PURPLE,92
+PLAYER,Mr. Green,GREEN,253
+PLAYER,Miss Scarlett,RED,190
+PLAYER,Ms. White,WHITE,10
+PLAYER,Colonel Mustard,YELLOW,229
+PLAYER,Ms. Peacock,BLUE,457
+WEAPON,Lead pipe
+WEAPON,Rope
+WEAPON,Candlestick
+WEAPON,Wrench
+WEAPON,Revolver
+WEAPON,Knife
+ROOM,Ballroom
+ROOM,Billiard Room
+ROOM,Kitchen
+ROOM,Dining Room
+ROOM,Conservatory
+ROOM,Library
+ROOM,Study
+ROOM,Lounge
+ROOM,Hall
