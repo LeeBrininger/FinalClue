@@ -53,22 +53,19 @@ public class Board extends JPanel {
     	for (BoardCell cell : cells) {
     		cell.draw(g);
     	}
-    	for (Player p : players) 
-    		p.draw(g);
-    	g.setColor(Color.BLACK);
-    	g.drawString("ROHAN", CELL_LENGTH*2 + 10, CELL_LENGTH*1 + CELL_LENGTH*3/4);
-    	g.drawString("MORDOR", 17*CELL_LENGTH, 17*CELL_LENGTH);
-    	g.drawString("GONDOR", CELL_LENGTH*8, CELL_LENGTH*17);
-    	g.drawString("THE SHIRE", CELL_LENGTH*1, CELL_LENGTH*10 + CELL_LENGTH*3/4);
-    	g.drawString("RIVENDELL", CELL_LENGTH*9, CELL_LENGTH*10 + CELL_LENGTH*3/4);
-    	g.drawString("ASH MOUNTAINS", CELL_LENGTH*16 + 10, CELL_LENGTH*21 + CELL_LENGTH/4);
-    	g.drawString("RHUN", CELL_LENGTH*17 + CELL_LENGTH/2, CELL_LENGTH*11 + CELL_LENGTH*3/4);
-    	g.drawString("MIRKWOOD", CELL_LENGTH*17 + CELL_LENGTH/2, CELL_LENGTH*5);
-    	g.drawString("DUNLAND", CELL_LENGTH*1, CELL_LENGTH*17 + CELL_LENGTH*3/4);
+    	for (Player p : players) p.draw(g);
     }
     
     public void setPlayers(ArrayList<Player> players)  {
     	this.players = players;
+    }
+    
+    public int getNumRows() {
+    	return numRows;
+    }
+    
+    public int getNumColumns() {
+    	return numColumns;
     }
 
     //simple getter function for all cell type, so walkpaths and rooms
@@ -160,10 +157,11 @@ public class Board extends JPanel {
 
 			String name = cellWithName.substring(posSpace);
 			name = name.trim();
-
+			
 			rooms.put(cellCodeB, name);
 		}
 
+		RoomCell.setRoomNameMap(rooms); //allow RoomCell to use this map to decode room initials
 		scan.close();
 
 	}
